@@ -1,17 +1,76 @@
+import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { TextField, InputAdornment, IconButton, Button } from "@mui/material";
 import { useState } from "react";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import axios from 'axios';
+import SnackbarComponent from '../../components/snackbars/SnackbarComponent';
+
 
 const LandingPage = () => {
 
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [userID, setUserID] = useState("");
+  const [password, setPassword] = useState("");
+  const [variant, setVariant] = useState("");
+  const [message, setMessage] = useState("");
+  
   const handleShowPasswordClick = () => {
     setShowPassword(!showPassword);
   }
+  const showSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const goToHome = () => {
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  }
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') return ;
+    setOpenSnackbar(false);
+  };
+
+  const handleSigninClick = (e) => {
+    e.preventDefault();
+    const userInputtedSigninData = {
+      userID: userID,
+      password: password
+    };
+    const apiUrl = process.env.REACT_APP_BASE_URL;
+    axios.post(`${apiUrl}sign-in`, userInputtedSigninData)
+      .then(response => {
+        if(response.status === 200)
+        {
+          setVariant("success");
+          setMessage("Sign-in successful!");
+          showSnackbar();
+          
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        setVariant("error");
+        setMessage("Invalid sign-in attempt!");
+        showSnackbar();
+      });
+  };
 
   return (
     <div className="h-[735px] w-full relative bg-whitesmoke overflow-hidden flex flex-row items-end justify-start pt-7 px-[27px] pb-[105px] box-border gap-[0px_122px] tracking-[normal] text-center text-[30px] text-gray font-roboto mq450:gap-[0px_122px] mq800:gap-[0px_122px] mq1325:flex-wrap mq1325:gap-[0px_122px]">
+
+     <SnackbarComponent
+        open={openSnackbar} 
+        message={message}
+        variant={variant} 
+        onClose={handleCloseSnackbar} 
+      />
+
+
       <div className="w-[686px] flex flex-col items-start justify-start min-w-[686px] min-h-[617px] max-w-full mq800:min-w-full mq1325:flex-1">
         <div className="self-stretch flex flex-row items-start justify-start gap-[0px_50px] max-w-full mq800:flex-wrap mq800:gap-[0px_50px]">
           <img
@@ -47,7 +106,7 @@ const LandingPage = () => {
           </b>
         </div>
 
-        
+      <form onSubmit = {handleSigninClick}>
         <div className="self-stretch rounded-3xs bg-white box-border overflow-hidden flex flex-col items-center justify-start pt-9 pb-14 pr-[29px] pl-7 gap-[36px_0px] max-w-full text-mini text-black border-[1px] border-solid border-darkgray mq450:pt-[23px] mq450:pb-9 mq450:box-border mq800:gap-[36px_0px]">
 
           <div className="self-stretch h-[105px] flex flex-col items-start justify-start pt-0 px-0 pb-[19px] box-border gap-[10px_0px]">
@@ -65,6 +124,8 @@ const LandingPage = () => {
                 placeholder="Enter your user ID"
                 variant="outlined"
                 color="success"
+                value = {userID}
+                onChange = {(e) => setUserID(e.target.value)}
               /> 
             </div>
 
@@ -99,6 +160,8 @@ const LandingPage = () => {
                       </InputAdornment>
                   ),
                 }}
+                value = {password}
+                onChange = {(e) => setPassword(e.target.value)}
               /> 
             </div>
 
@@ -112,13 +175,13 @@ const LandingPage = () => {
           </div>
 
           {/* SIGN IN BUTTON */}
-          <div className="self-stretch rounded-3xs bg-seagreen overflow-hidden flex flex-row items-center justify-center py-[18px] pr-0 pl-1 box-border max-w-full whitespace-nowrap text-center text-lg text-white hover:cursor-pointer hover:bg-seagreenlight active:bg-seagreen">
+          <button className="self-stretch rounded-3xs bg-seagreen overflow-hidden flex flex-row items-center justify-center py-[18px] pr-0 pl-1 box-border max-w-full whitespace-nowrap text-center text-lg text-white hover:cursor-pointer hover:bg-seagreenlight active:bg-seagreen" type="submit">
             <div className="flex-1 relative tracking-[0.5px] leading-[20px] font-medium inline-block max-w-full">
               Sign in
             </div>
-          </div>
-
+          </button>
         </div>
+      </form>
       </div>
     </div>
   );
