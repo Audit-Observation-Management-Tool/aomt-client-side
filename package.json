@@ -35,8 +35,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build:staging": "NODE_ENV=staging react-scripts build",
-    "build:production": "NODE_ENV=production react-scripts build"
+    "build:staging": "set NODE_ENV=production&& react-scripts build",
+    "build:production": "set NODE_ENV=production&& react-scripts build"
   },
   "eslintConfig": {
     "root": true
