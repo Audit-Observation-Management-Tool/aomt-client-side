@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Routes, Route, useNavigationType, useLocation } from "react-router-dom";
 import LandingPage from "./pages/landingPage/LandingPage";
+import SupervisorTemplate from "./pages/supervisor/template/SupervisorTemplate";
+import SupervisorDashboard from "./pages/supervisor/dashboard/SupervisorDashboard";
 
 function App() {
   const action = useNavigationType();
@@ -19,6 +21,10 @@ function App() {
 
     switch (pathname) {
       case "/":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/supervisor-page":
         title = "";
         metaDescription = "";
         break;
@@ -41,6 +47,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
+      <Route path="/supervisor-page" element={<SupervisorTemplate />} />
     </Routes>
   );
 }
