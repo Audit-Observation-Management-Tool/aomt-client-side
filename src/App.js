@@ -25,7 +25,7 @@ function App() {
         metaDescription = "";
         break;
       case "/supervisor-page":
-        title = "";
+        title = "Dashboard";
         metaDescription = "";
         break;
     }

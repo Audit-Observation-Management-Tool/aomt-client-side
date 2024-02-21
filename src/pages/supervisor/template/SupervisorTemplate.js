@@ -1,10 +1,24 @@
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
+import ViewDocumentationProgress from "../viewDocumentationProgress/ViewDocumentationProgress";
 import SupervisorDashboard from "../dashboard/SupervisorDashboard";
 
 const SupervisorTemplate = () => {
-  const onFrameContainerClick = useCallback(() => {
-    // Please sync "Add_software" to the project
+
+  const [selectedFrame, setSelectedFrame] = useState(localStorage.getItem('selectedFrame'));
+  const handleOptionClick = useCallback((option) => {
+    setSelectedFrame(option);
   }, []);
+  useEffect(() => {
+    localStorage.setItem('selectedFrame', selectedFrame);
+  }, [selectedFrame]); 
+
+  const [dashboardClicked, setDashboardClicked] = useState(true);
+  const [addSoftwareClicked, setSoftwareClicked] = useState(false);
+
+  const handleDashboardClicked = () => {
+    localStorage.clear();
+    setDashboardClicked(!dashboardClicked);
+  }
 
   /***
    * 
@@ -53,7 +67,8 @@ const SupervisorTemplate = () => {
         
           <div className="self-stretch flex flex-col items-end justify-start pt-0 px-0 pb-[5px] gap-[16px_0px]">
             <div className="self-stretch flex flex-col items-start justify-start gap-[11px_0px]">
-              <button className="cursor-pointer [border:none] py-2 pr-px pl-[21px] bg-seagreen-100 self-stretch overflow-hidden flex flex-row items-center justify-end">
+              <button className="cursor-pointer [border:none] py-2 pr-px pl-[21px] bg-seagreen-200 self-stretch overflow-hidden flex flex-row items-center justify-end hover:bg-seagreen-100"
+               onClick={() => handleOptionClick("Dashboard")}>
                 <div className="flex-1 flex flex-row items-start justify-start gap-[0px_7px]">
                   <img
                     className="h-[17px] w-[17px] relative"
@@ -66,10 +81,11 @@ const SupervisorTemplate = () => {
                 </div>
               </button>
               <div
-                className="self-stretch overflow-hidden flex flex-row items-center justify-end py-[5px] pr-0 pl-[21px] cursor-pointer"
-                onClick={onFrameContainerClick}
-              >
-                <div className="flex-1 flex flex-row items-center justify-start gap-[0px_8px]">
+                className={`self-stretch overflow-hidden flex flex-row items-center justify-end py-[5px] pr-0 pl-[21px] cursor-pointer hover:bg-seagreen-100 ${dashboardClicked ? 'bg-seagreen-100' : 'bg-seagreen-200'}`}
+                onClick={handleDashboardClicked} 
+               >
+                <div className="flex-1 flex flex-row items-center justify-start gap-[0px_8px]"
+                onClick={() => handleOptionClick("Add Software")}>
                   <img
                     className="h-[18px] w-[16.7px] relative"
                     loading="eager"
@@ -108,8 +124,9 @@ const SupervisorTemplate = () => {
             </div>
           </div>
         </div>
-        <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10  ml-8 mt-10 mr-5 mq900:max-w-full">
-            <SupervisorDashboard />
+        <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10 ml-1 mt-2 mr-2 mq900:max-w-full">
+          { selectedFrame === "Add Software" && <ViewDocumentationProgress /> }
+          { selectedFrame === "Dashboard" && <SupervisorDashboard /> }
         </div>
       </section>
     </div>
