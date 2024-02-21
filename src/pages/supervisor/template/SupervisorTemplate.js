@@ -109,13 +109,7 @@ const SupervisorTemplate = () => {
           </div>
         </div>
         <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10  ml-8 mt-10 mr-5 mq900:max-w-full">
-          <div className="flex flex-wrap gap-11">
             <SupervisorDashboard />
-            <SupervisorDashboard />
-            <SupervisorDashboard />
-            <SupervisorDashboard />
-            <SupervisorDashboard />
-          </div>
         </div>
       </section>
     </div>
