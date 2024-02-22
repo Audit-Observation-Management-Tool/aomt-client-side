@@ -175,7 +175,7 @@ const LandingPage = () => {
           </div>
 
           {/* SIGN IN BUTTON */}
-          <button className="self-stretch rounded-3xs bg-seagreen overflow-hidden flex flex-row items-center justify-center py-[18px] pr-0 pl-1 box-border max-w-full whitespace-nowrap text-center text-lg text-white hover:cursor-pointer hover:bg-seagreenlight active:bg-seagreen" type="submit">
+          <button className="self-stretch rounded-3xs bg-seagreen-200 overflow-hidden flex flex-row items-center justify-center py-[18px] pr-0 pl-1 box-border max-w-full whitespace-nowrap text-center text-lg text-white hover:cursor-pointer hover:bg-seagreen-100 active:bg-seagreen-100" type="submit">
             <div className="flex-1 relative tracking-[0.5px] leading-[20px] font-medium inline-block max-w-full">
               Sign in
             </div>
