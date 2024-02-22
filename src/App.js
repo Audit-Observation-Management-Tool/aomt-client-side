@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route, useNavigationType, useLocation } from "react-router-dom";
 import LandingPage from "./pages/landingPage/LandingPage";
+import SoftwareCardFrame from "./pages/SoftwareCardFrame/SoftwareCardFrame";
 
 function App() {
   const action = useNavigationType();
@@ -22,6 +23,10 @@ function App() {
         title = "";
         metaDescription = "";
         break;
+      case "/supervisor-dashboard":
+        title = "Supervisor Dashboard";
+        metaDescription = "";
+        break;
     }
 
     if (title) {
@@ -40,7 +45,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<LandingPage/>} />
+      <Route path="/supervisor-dashboard" element={<SoftwareCardFrame />} />
     </Routes>
   );
 }

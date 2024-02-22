@@ -7,8 +7,11 @@ module.exports = {
         whitesmoke: "#f4f5f7",
         white: "#fff",
         darkgray: "#999",
+        grayy: "#fafafa",
         seagreen: "#0b7046",
         seagreenlight: "#0E945C",
+        black: "#000",
+        red: "#f10808",
         black: "#000",
         gainsboro: "#e4e4e4",
         darkslategray: "#404040",
@@ -20,11 +23,15 @@ module.exports = {
       },
       borderRadius: {
         "3xs": "10px",
+         xl: "200px",
+        "31xl": "50px",
       },
     },
     fontSize: {
       lg: "18px",
       mini: "15px",
+      xs: "12px",
+      base: "16px",
       inherit: "inherit",
     },
     screens: {
