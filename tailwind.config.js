@@ -4,14 +4,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        red: "#F10808",
         white: "#fff",
-        royalblue: "#007af5",
+        darkgray: "#999",
+        grayy: "#fafafa",
+        black: "#000",
         red: {
           "100": "#fe1e1e",
           "200": "#f10808",
           "300": "#ff0000",
         },
-        black: "#000",
+        royalblue: "#007af5",
+        blacks: "#000", 
         whitesmoke: "#f4f5f7",
         darkgray: "#999",
         seagreen: {
@@ -49,10 +53,11 @@ module.exports = {
         inter: "Inter",
       },
       borderRadius: {
-        xl: "20px",
+        "xl": "20px",
         "3xs": "10px",
         "6xs": "7px",
         "8xs": "5px",
+        "31xl": "50px",
       },
     },
     fontSize: {
