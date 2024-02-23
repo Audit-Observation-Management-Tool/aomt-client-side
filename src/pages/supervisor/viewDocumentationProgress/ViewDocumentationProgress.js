@@ -4,7 +4,7 @@ import DocumentationProgressCards from "../../../components/cards/ProgressCards/
 import TeamMembersDatagrid from "../../../components/datagrids/teamMembersDatagrid.js/TeamMembersDatagrid";
 import { useState, useEffect } from "react";
 
-const ViewDocumentationProgress = () => {
+const ViewDocumentationProgress = ({ softwareName }) => {
   const [cardCount, setCardCount] = useState(0);
   const [height, setHeight] = useState(400);
 
@@ -19,7 +19,7 @@ const ViewDocumentationProgress = () => {
     <div className="w-[1337px] overflow-hidden flex flex-col items-center justify-start pt-3 pb-[61px] pr-[22px] pl-[25px] box-border tracking-[normal]">
       <header className="self-stretch flex flex-row items-start justify-start text-left text-[20px] text-dimgray-200 font-roboto">
         <h2 className="m-0 h-[41px] w-[213px] relative text-inherit font-bold font-inherit flex items-center shrink-0 whitespace-nowrap">
-          Loan Proposal System
+         {softwareName}
         </h2>
       </header>
       <section className="self-stretch flex flex-row items-start justify-start gap-[0px_20px] max-w-full text-left text-xs text-dimgray-400 font-roboto mq1050:flex-wrap">

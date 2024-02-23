@@ -39,10 +39,11 @@ const LandingPage = () => {
       password: password
     };
     const apiUrl = process.env.REACT_APP_BASE_URL;
-    axios.post(`${apiUrl}users/authenticate`, userInputtedSigninData)
+    axios.post(`${apiUrl}authenticate`, userInputtedSigninData)
       .then(response => {
         if(response.status === 200)
         {
+          localStorage.setItem('selectedFrame', 'dashboard');
           setVariant("success");
           setMessage("Sign-in successful!");
           showSnackbar();
