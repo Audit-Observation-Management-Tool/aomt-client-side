@@ -5,20 +5,22 @@ module.exports = {
     extend: {
       colors: {
         red: "F10808",
-        white: "#fff",
-        royalblue: "#007af5",
-        red: {
-          "100": "#f10808",
-          "200": "#ff0000",
-        },
-        black: "#000",
-        whitesmoke: "#f4f5f7",
-        darkgray: "#999",
-        seagreen: {
-          "100": "#208957",
-          "200": "#0b7046",
-        },
-        gainsboro: "#e4e4e4",
+        {
+  white: "#fff",
+  darkgray: "#999",
+  grayy: "#fafafa",
+  seagreen: "#0b7046",
+  seagreenlight: "#0E945C",
+  black: "#000",
+  red: {
+    "100": "#f10808",
+    "200": "#ff0000",
+  },
+  royalblue: "#007af5",
+  blacks: "#000", // Assuming this was a typo, I corrected it to "blacks"
+  whitesmoke: "#f4f5f7",
+  gainsboro: "#e4e4e4",
+}
         darkslategray: {
           "100": "#494949",
           "200": "#404040",
@@ -39,6 +41,8 @@ module.exports = {
       borderRadius: {
         xl: "20px",
         "3xs": "10px",
+         xl: "200px",
+        "31xl": "50px",
       },
     },
     fontSize: {
@@ -46,6 +50,8 @@ module.exports = {
       base: "16px",
       lg: "18px",
       mini: "15px",
+      xs: "12px",
+      base: "16px",
       inherit: "inherit",
     },
     screens: {
