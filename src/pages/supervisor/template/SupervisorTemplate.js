@@ -1,18 +1,62 @@
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
+import ViewDocumentationProgress from "../viewDocumentationProgress/ViewDocumentationProgress";
 import SupervisorDashboard from "../dashboard/SupervisorDashboard";
+import { useUserContext } from "../../../contexts/UserContext";
+import axios from 'axios';
+import Loader from "../../../components/loaders/Loader";
 
 const SupervisorTemplate = () => {
-  const onFrameContainerClick = useCallback(() => {
-    // Please sync "Add_software" to the project
+
+  const { userID } = useUserContext();
+  const [supervisorData, setSupervisorData] = useState(null); 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSupervisorData = async () => {
+      try {
+        const apiUrl = process.env.REACT_APP_BASE_URL;
+        const response = await axios.get(`${apiUrl}users/supervisor/${userID}`);
+        setSupervisorData(response.data.supervisorData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false); 
+      }
+    };
+    fetchSupervisorData();
+  }, [userID]);
+
+  console.log(supervisorData);
+
+  const [selectedFrame, setSelectedFrame] = useState(localStorage.getItem('selectedFrame'));
+  const handleOptionClick = useCallback((option) => {
+    setSelectedFrame(option);
   }, []);
 
-  /***
-   * 
-   * USE AXIOS FETCH TO FETCH THE SUPERVISOR DIVISION, AND SEND THE RESULT AS PROPS TO THE SUPERVISOR DASHBOARD. USE .MAP TO TRAVERSE THROUGH THE RESULTING ARRAY AND RENDER SoftwareCards
-   */
+  useEffect(() => {
+    localStorage.setItem('selectedFrame', selectedFrame);
+  }, [selectedFrame]); 
+
+  const [dashboardClicked, setDashboardClicked] = useState(true);
+  const [addSoftwareClicked, setSoftwareClicked] = useState(false);
+
+  const handleDashboardClicked = () => {
+    localStorage.clear();
+    setDashboardClicked(!dashboardClicked);
+    setSoftwareClicked(!addSoftwareClicked);
+  }
 
   return (
     <div className="h-[737px] w-full relative bg-gray-100 overflow-hidden flex flex-col items-start justify-start tracking-[normal] text-left text-base text-darkslategray-100 font-roboto">
+     {
+        loading && 
+        <div>
+          <Loader />
+        </div>
+      }
+
+     {!loading && (
+      <>
       <div className="self-stretch bg-white flex flex-col items-center justify-start max-w-full">
         <div className="self-stretch h-[65px] relative bg-white hidden" />
         <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[23px] pl-3.5 box-border max-w-full">
@@ -32,16 +76,18 @@ const SupervisorTemplate = () => {
             </div>
             <div className="flex flex-row items-end justify-start gap-[0px_12px] text-right text-[14px] text-gray-200 font-inter">
               <div className="flex flex-col items-end justify-start gap-[5px_0px]">
-                <div className="relative z-[1]">Mayeesha Musarrat</div>
+                <div className="relative z-[1]"> 
+                  {supervisorData[0].Name}
+                </div>
                 <div className="flex flex-row items-start justify-start py-0 pr-0 pl-5 text-xs text-slategray">
-                  <div className="relative z-[1]">Dhaka,Bangladesh</div>
+                  <div className="relative z-[1]">Supervisor, {supervisorData[0].Division} Division</div>
                 </div>
               </div>
               <img
-                className="h-[39px] w-[39px] relative object-cover min-h-[39px] z-[1]"
+                className="h-[39px] rounded-xl w-[39px] relative object-cover min-h-[39px] z-[1]"
                 loading="eager"
                 alt=""
-                src="/profilepic.png"
+                src={supervisorData[0].ProfilePicture}
               />
             </div>
           </div>
@@ -53,7 +99,8 @@ const SupervisorTemplate = () => {
         
           <div className="self-stretch flex flex-col items-end justify-start pt-0 px-0 pb-[5px] gap-[16px_0px]">
             <div className="self-stretch flex flex-col items-start justify-start gap-[11px_0px]">
-              <button className="cursor-pointer [border:none] py-2 pr-px pl-[21px] bg-seagreen-100 self-stretch overflow-hidden flex flex-row items-center justify-end">
+              <button className="cursor-pointer [border:none] py-2 pr-px pl-[21px] bg-seagreen-200 self-stretch overflow-hidden flex flex-row items-center justify-end hover:bg-seagreen-100"
+               onClick={() => handleOptionClick("Dashboard")}>
                 <div className="flex-1 flex flex-row items-start justify-start gap-[0px_7px]">
                   <img
                     className="h-[17px] w-[17px] relative"
@@ -66,10 +113,11 @@ const SupervisorTemplate = () => {
                 </div>
               </button>
               <div
-                className="self-stretch overflow-hidden flex flex-row items-center justify-end py-[5px] pr-0 pl-[21px] cursor-pointer"
-                onClick={onFrameContainerClick}
-              >
-                <div className="flex-1 flex flex-row items-center justify-start gap-[0px_8px]">
+                className={`self-stretch overflow-hidden flex flex-row items-center justify-end py-[5px] pr-0 pl-[21px] cursor-pointer hover:bg-seagreen-100 ${dashboardClicked ? 'bg-seagreen-100' : 'bg-seagreen-200'}`}
+                onClick={handleDashboardClicked} 
+               >
+                <div className="flex-1 flex flex-row items-center justify-start gap-[0px_8px]"
+                onClick={() => handleOptionClick("Add Software")}>
                   <img
                     className="h-[18px] w-[16.7px] relative"
                     loading="eager"
@@ -108,10 +156,13 @@ const SupervisorTemplate = () => {
             </div>
           </div>
         </div>
-        <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10  ml-8 mt-10 mr-5 mq900:max-w-full">
-            <SupervisorDashboard />
+        <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10 ml-1 mt-2 mr-2 mq900:max-w-full">
+          { selectedFrame === "Add Software" && <ViewDocumentationProgress /> }
+          { selectedFrame === "Dashboard" && <SupervisorDashboard /> }
         </div>
       </section>
+       </>
+     )}
     </div>
   );
 };

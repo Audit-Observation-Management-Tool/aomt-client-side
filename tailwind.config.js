@@ -8,17 +8,24 @@ module.exports = {
         white: "#fff",
         darkgray: "#999",
         grayy: "#fafafa",
-        seagreen: "#0b7046",
-        seagreenlight: "#0E945C",
         black: "#000",
         red: {
-          "100": "#f10808",
-          "200": "#ff0000",
+          "100": "#fe1e1e",
+          "200": "#f10808",
+          "300": "#ff0000",
         },
         royalblue: "#007af5",
-        blacks: "#000", // Assuming this was a typo, I corrected it to "blacks"
+        blacks: "#000", 
         whitesmoke: "#f4f5f7",
-        gainsboro: "#e4e4e4",
+        darkgray: "#999",
+        seagreen: {
+          "100": "#208957",
+          "200": "#0b7046",
+        },
+        gainsboro: {
+          "100": "#ede3e3",
+          "200": "#e4e4e4",
+        },
         darkslategray: {
           "100": "#494949",
           "200": "#404040",
@@ -30,6 +37,15 @@ module.exports = {
         },
         silver: "#c5c5c5",
         slategray: "#787486",
+        darkorange: "#f18200",
+        dimgray: {
+          "100": "#727272",
+          "200": "#716f6f",
+          "300": "#6f6f6f",
+          "400": "#7d5a5a",
+          "500": "rgba(81, 76, 76, 0.33)",
+        },
+        blue: "#000aff",
       },
       spacing: {},
       fontFamily: {
@@ -37,9 +53,10 @@ module.exports = {
         inter: "Inter",
       },
       borderRadius: {
-        xl: "20px",
+        "xl": "20px",
         "3xs": "10px",
-        // Removed duplicate 'xl' key here
+        "6xs": "7px",
+        "8xs": "5px",
         "31xl": "50px",
       },
     },
@@ -48,18 +65,25 @@ module.exports = {
       base: "16px",
       lg: "18px",
       mini: "15px",
-      // Removed duplicate 'xs' key here
+      "2xs": "11px",
+      "4xs": "9px",
       inherit: "inherit",
     },
     screens: {
       mq1325: {
         raw: "screen and (max-width: 1325px)",
       },
+      mq1050: {
+        raw: "screen and (max-width: 1050px)",
+      },
       mq900: {
         raw: "screen and (max-width: 900px)",
       },
       mq800: {
         raw: "screen and (max-width: 800px)",
+      },
+      mq725: {
+        raw: "screen and (max-width: 725px)",
       },
       mq675: {
         raw: "screen and (max-width: 675px)",

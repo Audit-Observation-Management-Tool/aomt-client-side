@@ -31,10 +31,11 @@ function App() {
 
       case "/supervisor-dashboard":
         title = "Supervisor Dashboard";
+        metadescription = "";
+        break;
         
       case "/supervisor-page":
-        title = "";
-
+        title = "Dashboard";
         metaDescription = "";
         break;
     }

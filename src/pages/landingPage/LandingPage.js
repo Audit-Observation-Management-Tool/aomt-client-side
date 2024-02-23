@@ -6,11 +6,13 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import axios from 'axios';
 import SnackbarComponent from '../../components/snackbars/SnackbarComponent';
+import { useUserContext } from '../../contexts/UserContext';
 
 
 const LandingPage = () => {
 
   const navigate = useNavigate();
+  const { setUserAsSupervisor } = useUserContext();
   const [showPassword, setShowPassword] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [userID, setUserID] = useState("");
@@ -25,11 +27,6 @@ const LandingPage = () => {
     setOpenSnackbar(true);
   };
 
-  const goToHome = () => {
-    setTimeout(() => {
-      navigate("/");
-    }, 2000);
-  }
   const handleCloseSnackbar = (event, reason) => {
     if (reason === 'clickaway') return ;
     setOpenSnackbar(false);
@@ -42,14 +39,24 @@ const LandingPage = () => {
       password: password
     };
     const apiUrl = process.env.REACT_APP_BASE_URL;
-    axios.post(`${apiUrl}sign-in`, userInputtedSigninData)
+    axios.post(`${apiUrl}users/authenticate`, userInputtedSigninData)
       .then(response => {
         if(response.status === 200)
         {
           setVariant("success");
           setMessage("Sign-in successful!");
           showSnackbar();
-          
+        }
+        if(response.data.isSupervisor)
+        {
+          setUserAsSupervisor(response.data.userID);
+          setTimeout(() => {
+            navigate("/supervisor-page");
+          }, 1220);
+        }
+        else 
+        {
+
         }
       })
       .catch(error => {
@@ -61,7 +68,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="h-[735px] w-full relative bg-whitesmoke overflow-hidden flex flex-row items-end justify-start pt-7 px-[27px] pb-[105px] box-border gap-[0px_122px] tracking-[normal] text-center text-[30px] text-gray font-roboto mq450:gap-[0px_122px] mq800:gap-[0px_122px] mq1325:flex-wrap mq1325:gap-[0px_122px]">
+    <div className="h-[735px] w-full relative bg-whitesmoke overflow-visible flex flex-row items-end justify-start pt-7 px-[27px] pb-[105px] box-border gap-[0px_122px] tracking-[normal] text-center text-[30px] text-gray font-roboto mq450:gap-[0px_122px] mq800:gap-[0px_122px] mq1325:flex-wrap mq1325:gap-[0px_122px]">
 
      <SnackbarComponent
         open={openSnackbar} 
@@ -88,7 +95,7 @@ const LandingPage = () => {
                 src="/LandingPage.png"
               />
               <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[13px] pl-[7px]">
-                <h1 className="m-0 relative text-inherit tracking-[0.5px] leading-[76px] font-extrabold font-inherit mq450:text-lg mq450:leading-[46px] mq800:text-[24px] mq800:leading-[61px] text-seagreen">
+                <h1 className="m-0 relative text-inherit tracking-[0.5px] leading-[76px] font-extrabold font-inherit mq450:text-lg mq450:leading-[46px] mq800:text-[24px] mq800:leading-[61px] text-seagreen-100">
                   <span>Audit Observation Management tool</span>
                 </h1>
               </div>
@@ -96,8 +103,8 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div className="w-[530px] flex flex-col items-start justify-start gap-[4px_0px] min-w-[530px] max-w-full text-left text-[32px] text-seagreen mq800:min-w-full mq1325:flex-1">
-        <h1 className="m-0 relative text-inherit tracking-[0.5px] leading-[40px] font-bold font-inherit mq450:text-[19px] mq450:leading-[24px] mq800:text-[26px] mq800:leading-[32px]">
+      <div className="w-[530px] flex flex-col items-start justify-start gap-[4px_0px] min-w-[530px] max-w-full text-left text-[32px] mq800:min-w-full mq1325:flex-1">
+        <h1 className="m-0 relative text-inherit tracking-[0.5px] leading-[40px] font-bold font-inherit mq450:text-[19px] mq450:leading-[24px] mq800:text-[26px] mq800:leading-[32px] text-seagreen-100">
           Welcome!
         </h1>
         <div className="flex flex-row items-start justify-start pt-0 px-px pb-[7px] text-[13px] text-darkslategray">
@@ -117,7 +124,7 @@ const LandingPage = () => {
             </div>
 
             {/* USER ID SIGN IN  */}
-            <div className="self-stretch flex-1 relative rounded-2xs bg-gainsboro overflow-visible">
+            <div className="self-stretch flex-1 relative rounded-2xs bg-gainsboro-200 overflow-visible">
               <TextField 
                 className="w-[472px]"
                 required
@@ -141,7 +148,7 @@ const LandingPage = () => {
 
 
             {/* USER PASSWORD SIGN IN  */}
-            <div className="self-stretch flex-1 relative rounded-2xs bg-gainsboro overflow-visible">
+            <div className="self-stretch flex-1 relative rounded-2xs bg-gainsboro-200 overflow-visible">
               <TextField 
                   className="w-[472px] [border:none] bg-[transparent]"
                   required
