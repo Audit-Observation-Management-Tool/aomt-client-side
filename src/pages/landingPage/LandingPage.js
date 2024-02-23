@@ -39,7 +39,7 @@ const LandingPage = () => {
       password: password
     };
     const apiUrl = process.env.REACT_APP_BASE_URL;
-    axios.post(`${apiUrl}sign-in`, userInputtedSigninData)
+    axios.post(`${apiUrl}users/authenticate`, userInputtedSigninData)
       .then(response => {
         if(response.status === 200)
         {
@@ -68,7 +68,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="h-[735px] w-full relative bg-whitesmoke overflow-hidden flex flex-row items-end justify-start pt-7 px-[27px] pb-[105px] box-border gap-[0px_122px] tracking-[normal] text-center text-[30px] text-gray font-roboto mq450:gap-[0px_122px] mq800:gap-[0px_122px] mq1325:flex-wrap mq1325:gap-[0px_122px]">
+    <div className="h-[735px] w-full relative bg-whitesmoke overflow-visible flex flex-row items-end justify-start pt-7 px-[27px] pb-[105px] box-border gap-[0px_122px] tracking-[normal] text-center text-[30px] text-gray font-roboto mq450:gap-[0px_122px] mq800:gap-[0px_122px] mq1325:flex-wrap mq1325:gap-[0px_122px]">
 
      <SnackbarComponent
         open={openSnackbar} 
