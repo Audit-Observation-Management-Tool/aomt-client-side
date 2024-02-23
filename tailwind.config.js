@@ -30,6 +30,34 @@ module.exports = {
         },
         silver: "#c5c5c5",
         slategray: "#787486",
+        red: "F10808",
+        {
+  white: "#fff",
+  darkgray: "#999",
+  grayy: "#fafafa",
+  seagreen: "#0b7046",
+  seagreenlight: "#0E945C",
+  black: "#000",
+  red: {
+    "100": "#f10808",
+    "200": "#ff0000",
+  },
+  royalblue: "#007af5",
+  blacks: "#000", // Assuming this was a typo, I corrected it to "blacks"
+  whitesmoke: "#f4f5f7",
+  gainsboro: "#e4e4e4",
+}
+        darkslategray: {
+          "100": "#494949",
+          "200": "#404040",
+        },
+        gray: {
+          "100": "#fafafa",
+          "200": "#0d062d",
+          "300": "rgba(0, 0, 0, 0.2)",
+        },
+        silver: "#c5c5c5",
+        slategray: "#787486",
       },
       spacing: {},
       fontFamily: {
