@@ -4,9 +4,11 @@ import { useUserContext } from '../../../contexts/UserContext';
 import SoftwareCard from '../../../components/cards/SoftwareCard/SoftwareCard';
 import { convertDate } from '../../../utils/DateConverter/ConvertDate';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SupervisorDashboard = ({onSelectionClick}) => {
   const [softwareData, setSoftwareData] = useState([]);
+  const navigate = useNavigate();
   const [selectedSoftwareID, setSelectedSoftwareID] = useState(null);
   const { supervisorID } = useUserContext();
 
@@ -16,12 +18,11 @@ useEffect(() => {
         if (!response.data) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-       // console.log('Received data:', response.data);
         const { data } = response;
 
         if (Array.isArray(data)) {
           const formattedSoftwareData = data.map(result => ({
-            softwareID: result.SID,
+            softwareID: result.Software_ID,
             softwareName: result.Name,
             deadline: convertDate(result.Deadline),
           }));
@@ -34,10 +35,9 @@ useEffect(() => {
 }, [supervisorID]);
 
 
-  const handleCardClick = softwareID => {
-    console.log(`Card Clicked! Software ID: ${softwareID}`);
-    setSelectedSoftwareID(softwareID);
-    localStorage.setItem('selectedSoftwareID', softwareID);
+  const handleCardClick = (software) => {
+    setSelectedSoftwareID(software.softwareID);
+    localStorage.setItem('software', JSON.stringify(software));
     onSelectionClick('viewDocumentationProgress');
   };
 
@@ -49,7 +49,7 @@ useEffect(() => {
             key={index}
             title={software.softwareName}
             deadline={`Deadline: ${software.deadline}`} 
-            onClick={() => handleCardClick(software.softwareID)}
+            onClick={() => handleCardClick(software)}
           />
         ))}
       </div>

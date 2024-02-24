@@ -4,9 +4,11 @@ import DocumentationProgressCards from "../../../components/cards/ProgressCards/
 import TeamMembersDatagrid from "../../../components/datagrids/teamMembersDatagrid.js/TeamMembersDatagrid";
 import { useState, useEffect } from "react";
 
-const ViewDocumentationProgress = ({ softwareName }) => {
+const ViewDocumentationProgress = ({onSelectionClick}) => {
   const [cardCount, setCardCount] = useState(0);
   const [height, setHeight] = useState(400);
+
+  const software = JSON.parse(localStorage.getItem('software'));
 
   useEffect(() => {
     if (cardCount > 2) 
@@ -15,13 +17,21 @@ const ViewDocumentationProgress = ({ softwareName }) => {
     }
   }, [cardCount]);
 
+  const handleGoBackClick = () => {
+    onSelectionClick('dashboard');
+  }
+
+
   return (
     <div className="w-[1337px] overflow-hidden flex flex-col items-center justify-start pt-3 pb-[61px] pr-[22px] pl-[25px] box-border tracking-[normal]">
       <header className="self-stretch flex flex-row items-start justify-start text-left text-[20px] text-dimgray-200 font-roboto">
         <h2 className="m-0 h-[41px] w-[213px] relative text-inherit font-bold font-inherit flex items-center shrink-0 whitespace-nowrap">
-         {softwareName}
+          <span className="hover:[text-decoration:underline] cursor-pointer"
+          onClick = {() => handleGoBackClick("dashboard")}
+          >Softwares </span>/{software.softwareName}
         </h2>
-      </header>
+    </header>
+
       <section className="self-stretch flex flex-row items-start justify-start gap-[0px_20px] max-w-full text-left text-xs text-dimgray-400 font-roboto mq1050:flex-wrap">
         <div className="w-[385px] flex flex-col items-start justify-start pt-2.5 px-0 pb-0 box-border min-w-[385px] max-w-full mq725:min-w-full mq1050:flex-1">
           <div className="self-stretch flex flex-col items-start justify-start gap-[19px_0px] max-w-full">
