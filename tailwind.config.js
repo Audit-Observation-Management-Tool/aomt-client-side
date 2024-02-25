@@ -13,6 +13,7 @@ module.exports = {
           "100": "#fe1e1e",
           "200": "#f10808",
           "300": "#ff0000",
+          "400": "#f10808",
         },
         royalblue: "#007af5",
         blacks: "#000", 
@@ -34,6 +35,7 @@ module.exports = {
           "100": "#fafafa",
           "200": "#0d062d",
           "300": "rgba(0, 0, 0, 0.2)",
+          "400": "#8f8e8e",
         },
         silver: "#c5c5c5",
         slategray: "#787486",
@@ -61,6 +63,7 @@ module.exports = {
       },
     },
     fontSize: {
+      xl: "20px",
       xs: "12px",
       base: "16px",
       lg: "18px",
