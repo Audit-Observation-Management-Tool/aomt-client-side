@@ -59,7 +59,6 @@ const SupervisorTemplate = () => {
           <Loader />
       </div>
       )
-
      }
      {!loading && (
       <>

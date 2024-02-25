@@ -1,51 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ArcProgress from "react-arc-progress";
 
-export default class ProgressPieChart extends React.Component {
-  state = {
-    progress: 1.0,
-    customText: [
-      { text: "78", size: "34px", color: "gray", x: 100, y: 94 },
-      { text: "/100", size: "14px", color: "gray", x: 100, y: 122 }
-    ]
-  };
+const ProgressPieChart = ({ progress }) => {
+  const [customText, setCustomText] = useState([
+    { text: "80", size: "34px", color: "gray", x: 100, y: 105 },
+    { text: "%", size: "14px", color: "gray", x: 125, y: 109 },
+  ]);
 
-  render() {
-    const { progress } = this.props;
-    const { customText } = this.state;
-    const arcFillColor = { gradient: ["#FBA86F", "#FED0A3", " #FED0A3"] };
-    return (
-      <>
-        <div
-          style={{
-            height: 100,
-            width: 100,
-            borderRadius: 50,
-            position: "absolute",
-            left: 58,
-            marginTop: 50,
-            boxShadow: `1px 3px 1px rgba(0,0,0,0.1)`,
-            boxShadow: "-2px 2px  rgba(0,0,0,0.1)",
-            mozBoxShadow: "0 0 5px  5px rgba(0,0,0,0.3)",
-            webkitBoxShadow: "0 3px 5px 1px rgba(0,0,0,0.1)"
-          oBoxShadow: "0 0 2px 2px rgba(0,0,0,0.3)"
-          }}
-        ></div>
-        <ArcProgress
-          thickness={20}
-          fillColor={arcFillColor}
-          progress={progress}
-          customText={customText}
-          style={{ position: "relative" }}
-          observer={(current) => {
-            const { percentage, currentText } = current;
-            console.log("observer:", percentage, currentText);
-          }}
-          animationEnd={({ progress, text }) => {
-            console.log("animationEnd", progress, text);
-          }}
-        />
-      </>
-    );
-  }
-}
+  useEffect(() => {
+  }, [progress]);
+
+  const arcFillColor = { gradient: ["#208957", "#0b7046"] };
+
+  return (
+    <>
+      <div
+        style={{
+          height: 100,
+          width: 100,
+          borderRadius: 90,
+          position: "absolute",
+          top: 140,
+          left: 104,
+          boxShadow: `0px 0px 4px rgba(0,0,0,0.2)`,
+        }}
+      ></div>
+      <ArcProgress
+        thickness={20}
+        fillColor={arcFillColor}
+        progress={progress}
+        customText={customText}
+        style={{ position: "relative" }}
+        observer={(current) => {
+          const { percentage, currentText } = current;
+        }}
+        animationEnd={({ progress, text }) => {
+          console.log("animationEnd", progress, text);
+        }}
+      />
+    </>
+  );
+};
+
+export default ProgressPieChart;

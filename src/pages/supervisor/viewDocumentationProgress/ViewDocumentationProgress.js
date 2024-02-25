@@ -1,4 +1,4 @@
-import PieChart from "../../../components/charts/pieCharts/PieChart";
+import ProgressPieChart from "../../../components/charts/progressPieChart/ProgressPieChart";
 import BarChart from "../../../components/charts/barCharts/BarChart";
 import DocumentationProgressCards from "../../../components/cards/ProgressCards/DocumentationProgressCards";
 import TeamMembersDatagrid from "../../../components/datagrids/teamMembersDatagrid.js/TeamMembersDatagrid";
@@ -36,7 +36,9 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
         <div className="w-[385px] flex flex-col items-start justify-start pt-2.5 px-0 pb-0 box-border min-w-[385px] max-w-full mq725:min-w-full mq1050:flex-1">
           <div className="self-stretch flex flex-col items-start justify-start gap-[19px_0px] max-w-full">
             <div className="self-stretch rounded-6xs bg-white shadow-[0px_0px_4px_rgba(0,_0,_0,_0.15)] flex flex-row items-end justify-start pt-[26px] pb-[31px] pr-[37px] pl-[27px] gap-[0px_16px] mq450:flex-wrap">
-              <PieChart />
+
+              <ProgressPieChart progress = {0.8} />
+
               <div className="w-[130px] flex flex-col items-start justify-start py-0 pr-px pl-0 box-border gap-[21px_0px] min-w-[129px] mq450:flex-1 mq450:pr-0 mq450:box-border">
                 <div className="relative font-medium">Required Documents</div>
                 <div className="self-stretch flex flex-row items-start justify-center pt-0 px-0 pb-[98px]">
@@ -56,7 +58,7 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
                 </div>
               </div>
             </div>
-            <div className="self-stretch overflow-hidden flex flex-row items-center justify-center pt-[25px] pb-[23px] pr-[21px] pl-[22px] box-border max-w-full">
+            <div className="self-stretch bg-red overflow-hidden flex flex-row items-center justify-top box-border max-w-full">
               <BarChart />
             </div>
           </div>
