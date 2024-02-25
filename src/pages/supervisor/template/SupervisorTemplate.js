@@ -53,13 +53,13 @@ const SupervisorTemplate = () => {
 
   return (
     <div className="h-[737px] w-full relative bg-gray-100 overflow-hidden flex flex-col items-start justify-start tracking-[normal] text-left text-base text-darkslategray-100 font-roboto">
-     {
-        loading && 
-        <div>
-          <Loader className="vh-50" />
-        </div>
-      }
-
+    {
+      loading && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <Loader />
+      </div>
+      )
+     }
      {!loading && (
       <>
       <div className="self-stretch bg-white flex flex-col items-center justify-start max-w-full">
@@ -163,7 +163,7 @@ const SupervisorTemplate = () => {
         <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10 ml-1 mt-2 mr-2 mq900:max-w-full">
           {/* { selectedFrame === "Add Software" && <ViewDocumentationProgress /> } */}
           { selectedFrame === "dashboard" && <SupervisorDashboard onSelectionClick={handleChildrenClick} /> }
-          { selectedFrame === "viewDocumentationProgress" && <ViewDocumentationProgress /> }
+          { selectedFrame === "viewDocumentationProgress" && <ViewDocumentationProgress onSelectionClick={handleChildrenClick} /> }
         </div>
       </section>
        </>
