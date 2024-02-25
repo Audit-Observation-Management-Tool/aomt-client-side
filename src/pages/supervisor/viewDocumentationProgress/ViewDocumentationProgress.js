@@ -26,9 +26,8 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/documentations/fetch-assigned-team-members', {
-          softwareID: 1 
-        });
+        const apiUrl = process.env.REACT_APP_BASE_URL;
+        const response = await axios.get(`${apiUrl}documentations/fetch-assigned-team-members/${software.softwareID}`);
         if (Array.isArray(response.data) && response.data.length > 0) 
         {
           const extractedData = response.data.map(([result]) => ({
