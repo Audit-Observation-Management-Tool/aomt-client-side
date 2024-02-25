@@ -23,7 +23,7 @@ useEffect(() => {
         if (Array.isArray(data)) {
           const formattedSoftwareData = data.map(result => ({
             softwareID: result.Software_ID,
-            softwareName: result.Name,
+            softwareName: result.Software_name,
             deadline: convertDate(result.Deadline),
           }));
           setSoftwareData(formattedSoftwareData);
