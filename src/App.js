@@ -3,6 +3,7 @@ import { Routes, Route, useNavigationType, useLocation } from "react-router-dom"
 import LandingPage from "./pages/landingPage/LandingPage";
 import SupervisorTemplate from "./pages/supervisor/template/SupervisorTemplate";
 import ViewDocumentationProgress from "./pages/supervisor/viewDocumentationProgress/ViewDocumentationProgress";
+import VersionDetails from "./pages/supervisor/versionDetails/versionDetails"
 
 function App() {
   const action = useNavigationType();
@@ -29,6 +30,11 @@ function App() {
         title = "Dashboard";
         metaDescription = "";
         break;
+
+        case "/version-details":
+        title = "Version Details";
+        metaDescription = "";
+        break;
     }
 
     if (title) {
@@ -49,6 +55,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage/>} />
       <Route path="/supervisor-page" element={<SupervisorTemplate />} />
+      <Route path="/version-details" element={<VersionDetails />} />
     </Routes>
   );
 }
