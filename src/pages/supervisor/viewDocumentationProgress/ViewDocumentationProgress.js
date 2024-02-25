@@ -2,11 +2,15 @@ import ProgressPieChart from "../../../components/charts/progressPieChart/Progre
 import BarChart from "../../../components/charts/barCharts/BarChart";
 import DocumentationProgressCards from "../../../components/cards/ProgressCards/DocumentationProgressCards";
 import TeamMembersDatagrid from "../../../components/datagrids/teamMembersDatagrid.js/TeamMembersDatagrid";
+import axios from 'axios';
+import Loader from "../../../components/loaders/Loader";
+import { convertDate } from "../../../utils/DateConverter/ConvertDate";
 import { useState, useEffect } from "react";
 
 const ViewDocumentationProgress = ({onSelectionClick}) => {
   const [cardCount, setCardCount] = useState(0);
   const [height, setHeight] = useState(400);
+  const [loading, setLoading] = useState(true);
 
   const software = JSON.parse(localStorage.getItem('software'));
 
@@ -17,19 +21,70 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
     }
   }, [cardCount]);
 
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiUrl = process.env.REACT_APP_BASE_URL;
+        const response = await axios.get(`${apiUrl}documentations/fetch-assigned-team-members/${software.softwareID}`);
+        if (Array.isArray(response.data) && response.data.length > 0) 
+        {
+          const extractedData = response.data.map(([result]) => ({
+            Type: result?.[0]?.Type || 'Unknown',
+            Status: result?.[0]?.Status || 'Unknown',
+            Deadline: result?.[0]?.Deadline,
+            Team_Member_ID: result?.map(({ Team_Members }) => Team_Members) || []
+          }));
+          setData(extractedData);
+        } 
+        else 
+        {
+          console.error('Empty or invalid response data:', response.data);
+        }
+      } 
+      catch (error) 
+      {
+        console.error('Error fetching data:', error);
+      }
+      finally 
+      {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log("data: ", data);
+
   const handleClick = (option) => {
     onSelectionClick(option);
   }
 
   return (
     <div className="w-[1337px] overflow-hidden flex flex-col items-center justify-start pt-3 pb-[61px] pr-[22px] pl-[25px] box-border tracking-[normal]">
-      <header className="self-stretch flex flex-row items-start justify-start text-left text-[20px] text-dimgray-200 font-roboto">
+
+    {
+      loading && 
+      (
+        <Loader />
+      )
+
+    }
+
+    {
+      !loading &&
+      (
+        <> 
+        <header className="self-stretch flex flex-row items-start justify-start text-left text-[20px] text-dimgray-200 font-roboto">
         <h2 className="m-0 h-[41px] w-[213px] relative text-inherit font-bold font-inherit flex items-center shrink-0 whitespace-nowrap">
           <span className="hover:[text-decoration:underline] cursor-pointer"
           onClick = {() => handleClick("dashboard")}
           >Softwares </span>/{software.softwareName}
         </h2>
     </header>
+
 
       <section className="self-stretch flex flex-row items-start justify-start gap-[0px_20px] max-w-full text-left text-xs text-dimgray-400 font-roboto mq1050:flex-wrap">
         <div className="w-[385px] flex flex-col items-start justify-start pt-2.5 px-0 pb-0 box-border min-w-[385px] max-w-full mq725:min-w-full mq1050:flex-1">
@@ -64,20 +119,21 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
         </div>
         <div className="flex-1 flex flex-col items-center justify-start gap-[23px_0px] min-w-[575px] max-w-full mq725:min-w-full">
       <div className="self-stretch overflow-hidden flex flex-row items-start justify-start pt-[11px] px-3 pb-[10px] box-border max-w-full">
-        <div className="flex flex-wrap gap-2">
-        <div  onClick={() => handleClick("viewVersionDetails")}>
-        <DocumentationProgressCards
-          documentationName="Hi"
-          documentationDeadline="hi"
-          status="hi"
-          />
-        </div>
-        
-        
+        <div  onClick={() => handleClick("viewVersionDetails")} className="flex flex-wrap gap-2">
+
+          {data.map((item, index) => (
+            <div key={index}>
+              <DocumentationProgressCards
+                documentationName={item.Type}
+                documentationDeadline={item.Deadline}///deadline not showing properly
+                status={item.Status}
+                />
+            </div>
+          ))}
         </div>
       </div>
-      <div className={`self-stretch h-full flex flex-row items-start justify-start py-0 pr-2 pl-6 box-border max-w-full`}>
-        <div className="self-stretch flex-1 relative bg-white overflow-hidden max-w-full">
+      <div className= "self-stretch h-full flex flex-row items-start justify-start py-0 pr-2 pl-6 box-border max-w-full">
+        <div className="self-stretch flex-1 relative overflow-hidden max-w-full h-[400px]">
           <TeamMembersDatagrid
           height={280}
           // 260 for card > 2 and 400 for card <= 2
@@ -86,6 +142,11 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
       </div>
     </div>
       </section>
+      </>
+      )
+    }
+
+     
     </div>
   );
 };

@@ -46,7 +46,7 @@ const rows = [
 
 export default function TeamMembersDatagrid({ height }) {
   return (
-    <Box sx={{ height: height, width: '100%' }}>
+    <Box sx={{ height: 220, width: '100%', backgroundColor: "white" }}>
       <DataGrid
         rows={rows}
         columns={columns}

@@ -43,6 +43,7 @@ const LandingPage = () => {
       .then(response => {
         if(response.status === 200)
         {
+          localStorage.clear();
           localStorage.setItem('selectedFrame', 'dashboard');
           setVariant("success");
           setMessage("Sign-in successful!");

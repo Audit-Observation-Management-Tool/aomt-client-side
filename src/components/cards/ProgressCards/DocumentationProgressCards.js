@@ -2,8 +2,11 @@ import { useCallback } from "react";
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import { styled } from '@mui/material/styles';
+import { convertDate } from "../../../utils/DateConverter/ConvertDate"; 
 
 const DocumentationProgressCards = ({ documentationName, documentationDeadline, status }) => {
+
+  const deadline = convertDate(documentationDeadline);
   const onAssignedToFrameClick = useCallback(() => {
     // Please sync "view a Doc" to the project
   }, []);
@@ -30,7 +33,7 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
         <div className="flex-1 flex flex-col items-start justify-start gap-[10px_0px] max-w-full">
           <div className="self-stretch flex flex-row items-start justify-start gap-[0px_51px] mq450:flex-wrap mq450:gap-[0px_51px]">
             <div className="flex-1 flex flex-col items-start justify-start gap-[18px_0px] min-w-[146px]">
-              <h3 className="m-0 relative text-inherit font-medium font-inherit">
+              <h3 className="m-0 relative text-inherit font-medium font-inherit text-[12px]">
                 {documentationName}
               </h3>
               <div className="relative text-2xs text-red-100 whitespace-pre-wrap shrink-0">
@@ -38,7 +41,7 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
               </div>
             </div>
             <div className="flex flex-col items-start justify-start pt-[5px] px-0 pb-0 text-2xs">
-              <div className="relative">Deadline: {documentationDeadline}</div>
+              <div className="relative">Deadline: {deadline}</div>
             </div>
           </div>
           <div className="self-stretch rounded-xl overflow-hidden flex flex-row items-center justify-start border-[1px] border-solid border-dimgray-500">
