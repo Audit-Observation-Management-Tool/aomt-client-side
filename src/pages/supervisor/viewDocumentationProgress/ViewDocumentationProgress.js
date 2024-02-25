@@ -17,17 +17,16 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
     }
   }, [cardCount]);
 
-  const handleGoBackClick = () => {
-    onSelectionClick('dashboard');
+  const handleClick = (option) => {
+    onSelectionClick(option);
   }
-
 
   return (
     <div className="w-[1337px] overflow-hidden flex flex-col items-center justify-start pt-3 pb-[61px] pr-[22px] pl-[25px] box-border tracking-[normal]">
       <header className="self-stretch flex flex-row items-start justify-start text-left text-[20px] text-dimgray-200 font-roboto">
         <h2 className="m-0 h-[41px] w-[213px] relative text-inherit font-bold font-inherit flex items-center shrink-0 whitespace-nowrap">
           <span className="hover:[text-decoration:underline] cursor-pointer"
-          onClick = {() => handleGoBackClick("dashboard")}
+          onClick = {() => handleClick("dashboard")}
           >Softwares </span>/{software.softwareName}
         </h2>
     </header>
@@ -66,9 +65,15 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
         <div className="flex-1 flex flex-col items-center justify-start gap-[23px_0px] min-w-[575px] max-w-full mq725:min-w-full">
       <div className="self-stretch overflow-hidden flex flex-row items-start justify-start pt-[11px] px-3 pb-[10px] box-border max-w-full">
         <div className="flex flex-wrap gap-2">
-          <DocumentationProgressCards />
-          <DocumentationProgressCards />
-          <DocumentationProgressCards />
+        <div  onClick={() => handleClick("viewVersionDetails")}>
+        <DocumentationProgressCards
+          documentationName="Hi"
+          documentationDeadline="hi"
+          status="hi"
+          />
+        </div>
+        
+        
         </div>
       </div>
       <div className={`self-stretch h-full flex flex-row items-start justify-start py-0 pr-2 pl-6 box-border max-w-full`}>

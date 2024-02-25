@@ -4,6 +4,7 @@ import { useUserContext } from "../../../contexts/UserContext";
 import axios from 'axios';
 import Loader from "../../../components/loaders/Loader";
 import ViewDocumentationProgress from "../viewDocumentationProgress/ViewDocumentationProgress";
+import VersionDetails from "../versionDetails/VersionDetails";
 
 const SupervisorTemplate = () => {
 
@@ -55,9 +56,7 @@ const SupervisorTemplate = () => {
     <div className="h-[737px] w-full relative bg-gray-100 overflow-hidden flex flex-col items-start justify-start tracking-[normal] text-left text-base text-darkslategray-100 font-roboto">
     {
       loading && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           <Loader />
-      </div>
       )
      }
      {!loading && (
@@ -164,6 +163,8 @@ const SupervisorTemplate = () => {
           {/* { selectedFrame === "Add Software" && <ViewDocumentationProgress /> } */}
           { selectedFrame === "dashboard" && <SupervisorDashboard onSelectionClick={handleChildrenClick} /> }
           { selectedFrame === "viewDocumentationProgress" && <ViewDocumentationProgress onSelectionClick={handleChildrenClick} /> }
+          { selectedFrame === "viewVersionDetails" && <VersionDetails onSelectionClick={handleChildrenClick} /> }
+          
         </div>
       </section>
        </>

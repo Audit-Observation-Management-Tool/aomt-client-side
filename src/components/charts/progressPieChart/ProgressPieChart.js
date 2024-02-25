@@ -35,7 +35,6 @@ const ProgressPieChart = ({ progress }) => {
           const { percentage, currentText } = current;
         }}
         animationEnd={({ progress, text }) => {
-          console.log("animationEnd", progress, text);
         }}
       />
     </>
