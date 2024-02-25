@@ -55,9 +55,10 @@ useEffect(() => {
   fetchData();
 
   return () => {
-    isMounted = false; // Cleanup function to reset flag on unmount
+    isMounted = false; 
   };
 }, [supervisorID]);
+
   const handleCardClick = (software) => {
     setSelectedSoftwareID(software.softwareID);
     localStorage.setItem('software', JSON.stringify(software));
@@ -68,9 +69,7 @@ useEffect(() => {
     <div className="w-[1275px] h-[604px] bg-grayy overflow-hidden flex flex-row items-start justify-start pt-[52px] px-[59px] pb-[410px] box-border">
      {
       loading && (
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <Loader />
-      </div>
+        <Loader />
       )
      }
      {(

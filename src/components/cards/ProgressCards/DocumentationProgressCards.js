@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import { styled } from '@mui/material/styles';
 
-const DocumentationProgressCards = ({ documentationName, documentationDeadline, assignedTo, status }) => {
+const DocumentationProgressCards = ({ documentationName, documentationDeadline, status }) => {
   const onAssignedToFrameClick = useCallback(() => {
     // Please sync "view a Doc" to the project
   }, []);
@@ -21,10 +21,9 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
     <Avatar alt="Trevor Henderson" src="" />,
   ];
 
-
   return (
     <div
-      className="w-[423px] rounded-3xs bg-white shadow-[0px_0px_4px_rgba(0,_0,_0,_0.15)] overflow-hidden shrink-0 flex flex-col items-center justify-start py-[17px] pr-5 pl-3 box-border gap-[18px_0px] max-w-full cursor-pointer text-left text-base text-dimgray-300 font-roboto"
+      className="w-[423px] rounded-3xs bg-white shadow-[0px_0px_4px_rgba(0,_0,_0,_0.15)] overflow-hidden shrink-0 flex flex-col items-center justify-start py-[17px] pr-5 pl-3 box-border gap-[18px_0px] max-w-full cursor-pointer text-left text-base text-dimgray-300 font-roboto hover:border-dimgray-300"
       onClick={onAssignedToFrameClick}
     >
       <div className="self-stretch flex flex-row items-start justify-start py-0 pr-0.5 pl-0 box-border max-w-full">
