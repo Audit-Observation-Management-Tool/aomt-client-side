@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from "@mui/material";
 import { DataGrid, GridLoadingOverlay } from '@mui/x-data-grid';
-import { convertDate } from '../../../utils/DateConverter/ConvertDate'; 
+import { convertDate } from '../../../utils/dateConverter/ConvertDate'; 
 import axios from 'axios';
 import Loader from '../../../components/loaders/Loader';
 

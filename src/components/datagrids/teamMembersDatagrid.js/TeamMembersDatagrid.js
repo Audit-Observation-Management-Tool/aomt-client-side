@@ -46,7 +46,7 @@ const rows = [
 
 export default function TeamMembersDatagrid({ height }) {
   return (
-    <Box sx={{ height: 220, width: '100%', backgroundColor: "white" }}>
+    <Box sx={{ height: height, width: 850, backgroundColor: "white" }}>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -54,7 +54,6 @@ export default function TeamMembersDatagrid({ height }) {
         pageSize={5}
         rowsPerPageOptions={[5]}
         checkboxSelection = {false}
-        
       />
     </Box>
   );
