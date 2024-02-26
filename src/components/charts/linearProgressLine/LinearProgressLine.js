@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
-import { CalculatePercentageOfDaysPassed } from '../../../utils/CalculatePercentageOfDaysPassed/CalculatePercentageOfDaysPassed'; 
+import { CalculatePercentageOfDaysPassed } from '../../../utils/calculatePercentageOfDaysPassed/CalculatePercentageOfDaysPassed'; 
 import { CalculateDaysDifference } from '../../../utils/calculateDaysDifference/CalculateDaysDifference';
 import { green, orange, red } from '@mui/material/colors';
 
@@ -17,6 +17,11 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
     borderRadius: 5,
   },
 }));
+
+/***
+ * 
+ * Custom linear progress bar color theme based on severity of deadline
+ */
 
 const theme = createTheme({
   palette: {
