@@ -18,6 +18,11 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
+/***
+ * 
+ * Custom linear progress bar color theme based on severity of deadline
+ */
+
 const theme = createTheme({
   palette: {
     primary: green,
