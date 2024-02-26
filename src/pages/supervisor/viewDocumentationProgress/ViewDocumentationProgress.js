@@ -4,7 +4,7 @@ import DocumentationProgressCards from "../../../components/cards/ProgressCards/
 import TeamMembersDatagrid from "../../../components/datagrids/teamMembersDatagrid.js/TeamMembersDatagrid";
 import axios from 'axios';
 import Loader from "../../../components/loaders/Loader";
-import { convertDate } from "../../../utils/DateConverter/ConvertDate";
+import { convertDate } from "../../../utils/dateConverter/ConvertDate";
 import { useState, useEffect } from "react";
 
 const ViewDocumentationProgress = ({onSelectionClick}) => {
@@ -13,13 +13,6 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
   const [loading, setLoading] = useState(true);
 
   const software = JSON.parse(localStorage.getItem('software'));
-
-  useEffect(() => {
-    if (cardCount > 2) 
-    {
-      setHeight(200);
-    }
-  }, [cardCount]);
 
   const [data, setData] = useState([]);
 
@@ -31,12 +24,18 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
         if (Array.isArray(response.data) && response.data.length > 0) 
         {
           const extractedData = response.data.map(([result]) => ({
-            Type: result?.[0]?.Type || 'Unknown',
-            Status: result?.[0]?.Status || 'Unknown',
+            Type: result?.[0]?.Type,
+            Status: result?.[0]?.Status,
             Deadline: result?.[0]?.Deadline,
             Team_Member_ID: result?.map(({ Team_Members }) => Team_Members) || []
-          }));
+          })).filter(item => 
+            item.Type !== null && 
+            item.Status !== null && 
+            item.Deadline !== null && 
+            item.Team_Member_ID.length > 0
+          );
           setData(extractedData);
+          setCardCount(extractedData.length);
         } 
         else 
         {
@@ -46,21 +45,36 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
       catch (error) 
       {
         console.error('Error fetching data:', error);
-      }
+      } 
       finally 
       {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
-
-  console.log("data: ", data);
 
   const handleClick = (option) => {
     onSelectionClick(option);
   }
+
+  useEffect(() => {
+    if (cardCount == 0) 
+    {
+      setHeight(550);
+    }
+    else if (cardCount <= 2) 
+    {
+      setHeight(390);
+    }
+    else if(cardCount > 2)
+    {
+      setHeight(260);
+    }
+  }, [cardCount]);
+
+
 
   return (
     <div className="w-[1337px] overflow-hidden flex flex-col items-center justify-start pt-3 pb-[61px] pr-[22px] pl-[25px] box-border tracking-[normal]">
@@ -117,26 +131,24 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
             </div>
           </div>
         </div>
-        <div className="flex-1 flex flex-col items-center justify-start gap-[23px_0px] min-w-[575px] max-w-full mq725:min-w-full">
-      <div className="self-stretch overflow-hidden flex flex-row items-start justify-start pt-[11px] px-3 pb-[10px] box-border max-w-full">
+        <div className="flex-1 flex flex-col items-center justify-start gap-[15px_0px] min-w-[575px] max-w-full mq725:min-w-full">
+      <div className="self-stretch overflow-hidden flex flex-row items-start justify-start pt-[11px] px-3 pb-[5px] box-border max-w-full">
         <div  onClick={() => handleClick("viewVersionDetails")} className="flex flex-wrap gap-2">
-
-          {data.map((item, index) => (
+         {data.map((item, index) => (
             <div key={index}>
               <DocumentationProgressCards
                 documentationName={item.Type}
-                documentationDeadline={item.Deadline}///deadline not showing properly
+                documentationDeadline={item.Deadline}
                 status={item.Status}
                 />
             </div>
           ))}
         </div>
       </div>
-      <div className= "self-stretch h-full flex flex-row items-start justify-start py-0 pr-2 pl-6 box-border max-w-full">
-        <div className="self-stretch flex-1 relative overflow-hidden max-w-full h-[400px]">
+      <div className= "self-stretch h-full flex flex-row items-start justify-start py-0 pr-2 pl-4 box-border max-w-full">
+        <div className="self-stretch flex-1 relative overflow-hidden max-w-full h-[800px]">
           <TeamMembersDatagrid
-          height={280}
-          // 260 for card > 2 and 400 for card <= 2
+          height={height}
           />
         </div>
       </div>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../../../contexts/UserContext';
 import SoftwareCard from '../../../components/cards/SoftwareCard/SoftwareCard';
-import { convertDate } from '../../../utils/DateConverter/ConvertDate';
+import { convertDate } from '../../../utils/dateConverter/ConvertDate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../components/loaders/Loader';
