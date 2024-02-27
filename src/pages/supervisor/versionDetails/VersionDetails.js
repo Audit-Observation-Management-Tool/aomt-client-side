@@ -1,15 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Button } from "@mui/material";
 import { DataGrid, GridLoadingOverlay } from '@mui/x-data-grid';
 import { convertDate } from '../../../utils/dateConverter/ConvertDate'; 
 import axios from 'axios';
 import Loader from '../../../components/loaders/Loader';
+import SendRemarksPopup from '../../../components/popups/SendRemarksPopup';
+import PortalPopup from '../../../components/popups/PortalPopup';
 
 const VersionDetails = ({onSelectionClick}) => {
   const [rows, setRows] = useState([]);
   const [softwareName, setSoftwareName] = useState('');
   const [documentName, setDocumentName] = useState('');
   const [loading, setLoading] = useState(true);
+
+  const [isCommentPopupOpen, setCommentPopupOpen] = useState(false);
+
+  const openCommentPopup = useCallback(() => {
+    setCommentPopupOpen(true);
+  }, []);
+
+  const closeCommentPopup = useCallback(() => {
+    setCommentPopupOpen(false);
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -100,7 +112,9 @@ const VersionDetails = ({onSelectionClick}) => {
       <> 
       <header className="self-stretch flex flex-row items-start justify-start text-left text-xl text-gray-400 font-roboto">
         <div className="overflow-hidden flex flex-row items-start justify-start py-0 pr-[18px] pl-[19px] gap-[0px_12px]">
+          
           <div className="h-[34px] w-200 flex flex-col items-start justify-end pt-0 px-0 pb-0 box-border">
+           
             <div className="mt-[-7px] self-stretch flex flex-row items-center justify-start">
               <b className="h-[41px] w-200 flex-1 relative flex items-center text-dimgray-200">
                 <span className="hover:[text-decoration:underline] cursor-pointer"
@@ -111,6 +125,21 @@ const VersionDetails = ({onSelectionClick}) => {
           </div>
         </div>
       </header>
+      <Button
+          className="h-10 flex-1"
+          disableElevation={true}
+          variant="contained"
+          sx={{
+            textTransform: "none",
+            color: "#fff",
+            fontSize: "12",
+            background: "#0b7046",
+            borderRadius: "5px",
+            "&:hover": { background: "#0b7046" },
+            height: 40,
+          }}
+          //onClick={openCommentPopup}
+        />
 
       <footer className="w-[1455px] h-[444px] relative left-[207px]">
         <div style={{ height: 450, width: 1250, backgroundColor:"white"}}>
@@ -142,10 +171,20 @@ const VersionDetails = ({onSelectionClick}) => {
             "&:hover": { background: "#0b7046" },
             height: 40,
           }}
+          onClick={openCommentPopup}
         >
           Send Remarks
         </Button>
       </div>
+      {isCommentPopupOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeCommentPopup}
+        >
+          <SendRemarksPopup onClose={closeCommentPopup} />
+        </PortalPopup>
+      )}
     </>
     )}
     </div>
