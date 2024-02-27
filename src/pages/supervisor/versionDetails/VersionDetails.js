@@ -110,12 +110,10 @@ const VersionDetails = ({onSelectionClick}) => {
     }
     {!loading && (
       <> 
-      <header className="self-stretch flex flex-row items-start justify-start text-left text-xl text-gray-400 font-roboto">
+      <header className="self-stretch flex flex-row items-start justify-start text-left text-xl text-gray-400 font-roboto mb-[-40px]">
         <div className="overflow-hidden flex flex-row items-start justify-start py-0 pr-[18px] pl-[19px] gap-[0px_12px]">
-          
           <div className="h-[34px] w-200 flex flex-col items-start justify-end pt-0 px-0 pb-0 box-border">
-           
-            <div className="mt-[-7px] self-stretch flex flex-row items-center justify-start">
+           <div className="mt-[-7px] self-stretch flex flex-row items-center justify-start">
               <b className="h-[41px] w-200 flex-1 relative flex items-center text-dimgray-200">
                 <span className="hover:[text-decoration:underline] cursor-pointer"
                 onClick={() => handleClick("viewDocumentationProgress")}
@@ -125,7 +123,8 @@ const VersionDetails = ({onSelectionClick}) => {
           </div>
         </div>
       </header>
-      <Button
+      <div className="w-[205px] h-10 flex flex-row items-start justify-start py-[-200] px-0.5 box-border mb-[-10px]">
+        <Button
           className="h-10 flex-1"
           disableElevation={true}
           variant="contained"
@@ -138,8 +137,11 @@ const VersionDetails = ({onSelectionClick}) => {
             "&:hover": { background: "#0b7046" },
             height: 40,
           }}
-          //onClick={openCommentPopup}
-        />
+          onClick={openCommentPopup}
+        >
+          Download Latest Version
+        </Button>
+      </div>
 
       <footer className="w-[1455px] h-[444px] relative left-[207px]">
         <div style={{ height: 450, width: 1250, backgroundColor:"white"}}>
