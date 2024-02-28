@@ -1,10 +1,13 @@
 import { Button, Select, MenuItem, InputLabel } from "@mui/material";
 import { useState } from "react";
+import axios from 'axios';
+import Loader from "../loaders/Loader";
 
 
 const SendRemarksPopup = ({ onClose }) => {
   const [status, setStatus] = useState('');
   const [remarks, setRemarks] = useState(''); 
+  const [loading, setLoading] = useState(true);
 
   const handleStatusChange = (event) => {
     setStatus(event.target.value);
@@ -14,10 +17,32 @@ const SendRemarksPopup = ({ onClose }) => {
     setRemarks(event.target.value);
   };
 
-  const handleSendClick = () => {
+  const handleSendClick = async () => {
     
     console.log('Selected Status:', status);
     console.log('Remarks: ', remarks);
+
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}supervisor/review-doc`, {
+        status,
+        remarks,
+      });
+
+      if (!response.data || response.data.length === 0) {
+        console.log('No data found');
+        return;
+      }
+
+    } 
+    catch (error) 
+    {
+      console.error('Error fetching data:', error);
+    }
+    finally 
+    {
+       setLoading(false);
+    }
+
     
   };
   return (
@@ -46,17 +71,16 @@ const SendRemarksPopup = ({ onClose }) => {
                   value={status}
                   onChange={handleStatusChange}
                   style={{
-                    height: '40px',     // Adjust the height of the select box
-                    width: '250px',      // Adjust the width of the select box
-                    backgroundColor: '#ffffff', // Adjust the background color
-                    borderRadius: '5px', // Adjust the border-radius
+                    height: '40px',     
+                    width: '250px',      
+                    backgroundColor: '#ffffff', 
+                    borderRadius: '5px', 
                     fontSize: '13px',
                     fontFamily: 'Roboto',
                     color: '#656565',
-                    alignItems: 'left'
+                    textAlign: 'left',
                   }}
-                  labelStyle={{ fontSize: '2px' }} // Adjust label font size inside the select box
-                  iconStyle={{ color: 'blue' }}// You can set a default value if needed
+                  iconStyle={{ color: 'blue' }}
                 >
                   <MenuItem value="accept">Accept</MenuItem>
                   <MenuItem value="return">Return</MenuItem>

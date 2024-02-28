@@ -137,7 +137,6 @@ const VersionDetails = ({onSelectionClick}) => {
             "&:hover": { background: "#0b7046" },
             height: 40,
           }}
-          onClick={openCommentPopup}
         >
           Download Latest Version
         </Button>
