@@ -45,7 +45,18 @@ const VersionDetails = ({onSelectionClick}) => {
       const rowsWithIds = data.map((row, index) => ({
         id: index + 1,
         name: row.Version_No || '',
-        'submitted by': row.Name || '',
+        'submitted by': (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {row.ProfilePicture && (
+              <img
+                src={row.ProfilePicture}
+                alt={`Profile Pic`}
+                style={{ marginRight: '8px', width: '24px', height: '24px', borderRadius: '50%' }}
+              />
+            )}
+            {row.Name || ''}
+          </div>
+        ),
         'submitted on': convertDate(row.Submission_Date) || '',
         status: row.Status || '',
         'change message': row.Change_log || '',
@@ -93,15 +104,39 @@ const VersionDetails = ({onSelectionClick}) => {
   const getRowId = (row) => row.id;
 
   const columns = [
-    
-    { field: 'name', headerName: 'Version', width: 95, align: 'center', headerAlign: 'center' },
-    { field: 'submitted by', headerName: 'Submitted By', width: 200, align: 'center', headerAlign: 'center' },
-    { field: 'submitted on', headerName: 'Submitted On', width: 130, align: 'center', headerAlign: 'center' },
-    { field: 'status', headerName: 'Status', width: 140, align: 'center', headerAlign: 'center', renderCell: (params) => (
-      <div style={{ color: params.value === 'Not Reviewed' ? 'red-100' : 'inherit' }}>
-        {params.value}
-      </div>
-    )},
+    { field: 'name', headerName: 'Version', width: 190, align: 'center', headerAlign: 'center'  },
+    {
+      field: 'submitted by',
+      headerName: 'Submitted By',
+      width: 300,
+      //align: 'center',
+      headerAlign: 'center',
+      renderCell: (params) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {params.row.ProfilePicture && (
+            <img
+              src={params.row.ProfilePicture}
+              alt={`Profile Pic`}
+              style={{ marginRight: '8px', width: '24px', height: '24px', borderRadius: '50%' }}
+            />
+          )}
+          {params.value}
+        </div>
+      ),
+    },
+    { field: 'submitted on', headerName: 'Submitted On', width: 180, align: 'center', headerAlign: 'center' },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 180,
+      align: 'center',
+      headerAlign: 'center',
+      renderCell: (params) => (
+        <div style={{ color: params.value === 'Accepted' ? 'green' : (params.value === 'Not Reviewed' ? 'red' : 'inherit') }}>
+          {params.value}
+        </div>
+      ),
+    },
     { 
       field: 'change message', 
       headerName: 'Change Message', 
@@ -123,6 +158,8 @@ const VersionDetails = ({onSelectionClick}) => {
         width: 200, 
         headerAlign: 'center',
     }
+      ),
+    },
   ];
 
   return (
