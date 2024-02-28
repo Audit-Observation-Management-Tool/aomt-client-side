@@ -157,9 +157,7 @@ const VersionDetails = ({onSelectionClick}) => {
         headerName: 'Your Remarks', 
         width: 200, 
         headerAlign: 'center',
-    }
-      ),
-    },
+     },
   ];
 
   return (
