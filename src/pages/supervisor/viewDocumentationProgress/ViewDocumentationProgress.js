@@ -11,6 +11,7 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
   const [cardCount, setCardCount] = useState(0);
   const [height, setHeight] = useState(400);
   const [loading, setLoading] = useState(true);
+  const [selectedCardData, setSelectedCardData] = useState(null);
 
   const software = JSON.parse(localStorage.getItem('software'));
 
@@ -20,15 +21,19 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
     const fetchData = async () => {
       try {
         const apiUrl = process.env.REACT_APP_BASE_URL;
-        const response = await axios.get(`${apiUrl}documentations/fetch-assigned-team-members/${software.softwareID}`);
+        const response = await axios.get(`${apiUrl}documents/fetch-document-progress/${software.softwareID}`);
         if (Array.isArray(response.data) && response.data.length > 0) 
         {
           const extractedData = response.data.map(([result]) => ({
             Type: result?.[0]?.Type,
             Status: result?.[0]?.Status,
             Deadline: result?.[0]?.Deadline,
-            Team_Member_ID: result?.map(({ Team_Members }) => Team_Members) || []
-          })).filter(item => 
+            Team_Member_ID: result?.map(({ Team_Members }) => Team_Members) || [],
+            Software_ID: result?.[0]?.Software_ID,
+            Software_Name: result?.[0]?.Software_name,
+            Document_ID: result?.[0]?.Document_ID,
+          }))
+          .filter(item => 
             item.Type !== null && 
             item.Status !== null && 
             item.Deadline !== null && 
@@ -56,9 +61,13 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
   }, []);
 
   const handleClick = (option) => {
-    onSelectionClick(option);
+    onSelectionClick(option); 
   }
 
+  const handleCardClick = (data) => {
+    console.log("item: ", data);
+    localStorage.setItem('cardData', JSON.stringify(data));
+  }
   useEffect(() => {
     if (cardCount == 0) 
     {
@@ -73,8 +82,6 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
       setHeight(260);
     }
   }, [cardCount]);
-
-
 
   return (
     <div className="w-[1337px] overflow-hidden flex flex-col items-center justify-start pt-3 pb-[61px] pr-[22px] pl-[25px] box-border tracking-[normal]">
@@ -140,6 +147,7 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
                 documentationName={item.Type}
                 documentationDeadline={item.Deadline}
                 status={item.Status}
+                onClick={()=>handleCardClick(item)}
                 />
             </div>
           ))}

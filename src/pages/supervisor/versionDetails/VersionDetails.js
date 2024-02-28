@@ -9,11 +9,13 @@ import PortalPopup from '../../../components/popups/PortalPopup';
 
 const VersionDetails = ({onSelectionClick}) => {
   const [rows, setRows] = useState([]);
-  const [softwareName, setSoftwareName] = useState('');
-  const [documentName, setDocumentName] = useState('');
   const [loading, setLoading] = useState(true);
-
   const [isCommentPopupOpen, setCommentPopupOpen] = useState(false);
+
+  const storedData = localStorage.getItem('cardData');
+  const cardData = storedData ? JSON.parse(storedData) : null;
+  const [softwareName, setSoftwareName] = useState(cardData.Software_Name);
+  const [documentName, setDocumentName] = useState(" / " + cardData.Type);
 
   const openCommentPopup = useCallback(() => {
     setCommentPopupOpen(true);
@@ -29,9 +31,9 @@ const VersionDetails = ({onSelectionClick}) => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}supervisor/fetch-version-details`, {
-        supervisorId: 1,
-        documentId: 1,
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}documents/fetch-version-details`, {
+        softwareID: `${cardData.Software_ID}`,
+        documentID: `${cardData.Document_ID}`,
       });
 
       if (!response.data || response.data.length === 0) {
@@ -40,10 +42,6 @@ const VersionDetails = ({onSelectionClick}) => {
       }
 
       const data = response.data;
-      setDocumentName(` / ${data[0].Type}`);
-      setSoftwareName(`${data[0].Software_name}`);
-      
-      console.log(data);
       const rowsWithIds = data.map((row, index) => ({
         id: index + 1,
         name: row.Version_No || '',
@@ -51,7 +49,7 @@ const VersionDetails = ({onSelectionClick}) => {
         'submitted on': convertDate(row.Submission_Date) || '',
         status: row.Status || '',
         'change message': row.Change_log || '',
-        action: '',
+        remarks: row.Remarks
       }));
 
       setRows(rowsWithIds);
@@ -66,6 +64,28 @@ const VersionDetails = ({onSelectionClick}) => {
     }
   };
 
+  const downloadLatestDocument = () => {
+    const data = {
+      softwareID: cardData.Software_ID,
+      documentType: cardData.Type
+    };
+
+    axios.post(`${process.env.REACT_APP_BASE_URL}documents/download-pdf`, data, { responseType: 'blob' })
+      .then(response => {
+        const url = URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${cardData.Software_Name}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to download PDF file.');
+      });
+  };
+
+
   const handleClick = (option) => {
     onSelectionClick(option);
   }
@@ -74,18 +94,18 @@ const VersionDetails = ({onSelectionClick}) => {
 
   const columns = [
     
-    { field: 'name', headerName: 'Version', width: 100, align: 'center', headerAlign: 'center' },
-    { field: 'submitted by', headerName: 'Submitted By', width: 250, align: 'center', headerAlign: 'center' },
-    { field: 'submitted on', headerName: 'Submitted On', width: 150, align: 'center', headerAlign: 'center' },
-    { field: 'status', headerName: 'Status', width: 180, align: 'center', headerAlign: 'center', renderCell: (params) => (
+    { field: 'name', headerName: 'Version', width: 95, align: 'center', headerAlign: 'center' },
+    { field: 'submitted by', headerName: 'Submitted By', width: 200, align: 'center', headerAlign: 'center' },
+    { field: 'submitted on', headerName: 'Submitted On', width: 130, align: 'center', headerAlign: 'center' },
+    { field: 'status', headerName: 'Status', width: 140, align: 'center', headerAlign: 'center', renderCell: (params) => (
       <div style={{ color: params.value === 'Not Reviewed' ? 'red-100' : 'inherit' }}>
         {params.value}
       </div>
-    ), },
+    )},
     { 
       field: 'change message', 
       headerName: 'Change Message', 
-      width: 450, 
+      width: 420, 
       headerAlign: 'center',
       renderCell: (params) => (
         <div style={{ whiteSpace: 'pre-line' }}>
@@ -96,9 +116,13 @@ const VersionDetails = ({onSelectionClick}) => {
             </React.Fragment>
           ))}
         </div>
-      ),
-    },
-    { field: 'action', headerName: 'Action', width: 90, align: 'center', headerAlign: 'center' },
+      )},
+      { 
+        field: 'remarks', 
+        headerName: 'Your Remarks', 
+        width: 200, 
+        headerAlign: 'center',
+    }
   ];
 
   return (
@@ -137,7 +161,7 @@ const VersionDetails = ({onSelectionClick}) => {
             "&:hover": { background: "#0b7046" },
             height: 40,
           }}
-          onClick={openCommentPopup}
+          onClick={downloadLatestDocument}
         >
           Download Latest Version
         </Button>
