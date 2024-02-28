@@ -7,6 +7,7 @@ export const useUserContext = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [supervisorID, setSupervisorID] = useState(null);
   const [memberID, setMemberID] = useState(null);
+  const [softwareID, setSoftwareID] = useState(null);
 
   const setUserAsSupervisor = (ID) => {
     setSupervisorID(ID);
@@ -16,8 +17,12 @@ export const UserProvider = ({ children }) => {
     setMemberID(ID);
   };
 
+  const setSelectedSoftwareID = (ID) => {
+    setSoftwareID(ID);
+  };
+
   return (
-    <UserContext.Provider value={{ supervisorID, setUserAsSupervisor, memberID, setUserAsMember }}>
+    <UserContext.Provider value={{ supervisorID, setUserAsSupervisor, memberID, setUserAsMember, softwareID, setSelectedSoftwareID }}>
       {children}
     </UserContext.Provider>
   );

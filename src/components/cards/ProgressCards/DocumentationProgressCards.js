@@ -6,9 +6,16 @@ import { convertDate } from "../../../utils/dateConverter/ConvertDate";
 import { DaysLeftTillDeadline } from "../../../utils/daysLeftTillDeadline/DaysLeftTillDeadline";
 import LinearProgressLine from "../../charts/linearProgressLine/LinearProgressLine";
 
-const DocumentationProgressCards = ({ documentationName, documentationDeadline, status }) => {
+const DocumentationProgressCards = ({ documentationName, documentationDeadline, status, onClick }) => {
 
   const deadline = convertDate(documentationDeadline);
+
+  const handleCardClick = useCallback(() => {
+    if (onClick) 
+    {
+      onClick();
+    }
+  }, [onClick]);
 
   const SmallAvatar = styled(Avatar)(() => ({
     width: 22,
@@ -26,6 +33,7 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
   return (
     <div
       className="w-[423px] rounded-3xs bg-white shadow-[0px_0px_2px_rgba(0,_0,_0,_0.4)] overflow-hidden shrink-0 flex flex-col items-center justify-start py-[17px] pr-5 pl-3 box-border gap-[18px_0px] max-w-full cursor-pointer text-left text-base text-dimgray-300 font-roboto hover:shadow-[0px_0px_2px_rgba(0,_0,_0,_0.6)]"
+      onClick={handleCardClick}
     >
       <div className="self-stretch flex flex-row items-start justify-start py-0 pr-0.5 pl-0 box-border max-w-full">
         <div className="flex-1 flex flex-col items-start justify-start gap-[10px_0px] max-w-full">
