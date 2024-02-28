@@ -1,7 +1,6 @@
 import { Button, Select, MenuItem, InputLabel } from "@mui/material";
 import { useState } from "react";
 import axios from 'axios';
-import Loader from "../loaders/Loader";
 
 
 const SendRemarksPopup = ({ onClose }) => {
@@ -38,12 +37,7 @@ const SendRemarksPopup = ({ onClose }) => {
     {
       console.error('Error fetching data:', error);
     }
-    finally 
-    {
-       setLoading(false);
-    }
 
-    
   };
   return (
     <div className="w-[326px] rounded-xl bg-whitesmoke shadow-[0px_4px_10px_rgba(0,_0,_0,_0.3)] overflow-hidden flex flex-col items-center justify-start pt-4 pb-[37px] pr-5 pl-[35px] box-border gap-[5px_0px] max-w-full max-h-full">
