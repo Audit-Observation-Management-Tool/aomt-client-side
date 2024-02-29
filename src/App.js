@@ -3,6 +3,7 @@ import { Routes, Route, useNavigationType, useLocation } from "react-router-dom"
 import LandingPage from "./pages/landingPage/LandingPage";
 import SupervisorTemplate from "./pages/supervisor/template/SupervisorTemplate";
 import ViewDocumentationProgress from "./pages/supervisor/viewDocumentationProgress/ViewDocumentationProgress";
+import MemberTemplate from "./pages/members/template/MemberTemplate";
 
 function App() {
   const action = useNavigationType();
@@ -49,6 +50,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage/>} />
       <Route path="/supervisor-page" element={<SupervisorTemplate />} />
+      <Route path="/member-page" element = {<MemberTemplate />} />
     </Routes>
   );
 }
