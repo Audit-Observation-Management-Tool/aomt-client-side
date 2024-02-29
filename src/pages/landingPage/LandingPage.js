@@ -41,10 +41,11 @@ const LandingPage = () => {
     const apiUrl = process.env.REACT_APP_BASE_URL;
     axios.post(`${apiUrl}authenticate`, userInputtedSigninData)
       .then(response => {
+        console.log(response.status);
         if(response.status === 200)
         {
           localStorage.clear();
-          localStorage.setItem('selectedFrame', 'dashboard');
+       //   localStorage.setItem('selectedFrame', 'dashboard');
           setVariant("success");
           setMessage("Sign-in successful!");
           showSnackbar();
@@ -52,14 +53,16 @@ const LandingPage = () => {
         if(response.data.isSupervisor)
         {
           setUserAsSupervisor(response.data.userID);
+          localStorage.setItem('selectedFrame', 'dashboard');
           localStorage.setItem('ID', response.data.userID);
           setTimeout(() => {
             navigate("/supervisor-page");
           }, 1220);
         }
-        else 
+        else if(!response.data.isSupervisor)
         {
-          setUserAsMember(response.data.userID);
+        //  setUserAsMember(response.data.userID);
+          localStorage.setItem('selectedFrame', 'uploadDocuments');
           localStorage.setItem('ID', response.data.userID);
           setTimeout(() => {
             navigate("/member-page");
