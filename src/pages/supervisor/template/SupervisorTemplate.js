@@ -8,7 +8,7 @@ import VersionDetails from "../versionDetails/VersionDetails";
 
 const SupervisorTemplate = () => {
 
-  const { supervisorID } = useUserContext();
+  const supervisorID = localStorage.getItem('ID');
   const [supervisorData, setSupervisorData] = useState(null); 
   const [loading, setLoading] = useState(true);
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from 'react';
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { DataGrid, GridLoadingOverlay } from '@mui/x-data-grid';
 import { convertDate } from '../../../utils/dateConverter/ConvertDate'; 
 import axios from 'axios';
@@ -45,7 +45,18 @@ const VersionDetails = ({onSelectionClick}) => {
       const rowsWithIds = data.map((row, index) => ({
         id: index + 1,
         name: row.Version_No || '',
-        'submitted by': row.Name || '',
+        'submitted by': (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {row.ProfilePicture && (
+              <img
+                src={row.ProfilePicture}
+                alt={`Profile Pic`}
+                style={{ marginRight: '8px', width: '24px', height: '24px', borderRadius: '50%' }}
+              />
+            )}
+            {row.Name || ''}
+          </div>
+        ),
         'submitted on': convertDate(row.Submission_Date) || '',
         status: row.Status || '',
         'change message': row.Change_log || '',
@@ -75,13 +86,13 @@ const VersionDetails = ({onSelectionClick}) => {
         const url = URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download', `${cardData.Software_Name}.pdf`);
+        link.setAttribute('download', `${cardData.Software_Name}_${cardData.Type}.pdf`);
         document.body.appendChild(link);
         link.click();
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('Failed to download PDF file.');
+        alert('There is no PDF file to download.');
       });
   };
 
@@ -93,15 +104,39 @@ const VersionDetails = ({onSelectionClick}) => {
   const getRowId = (row) => row.id;
 
   const columns = [
-    
-    { field: 'name', headerName: 'Version', width: 95, align: 'center', headerAlign: 'center' },
-    { field: 'submitted by', headerName: 'Submitted By', width: 200, align: 'center', headerAlign: 'center' },
-    { field: 'submitted on', headerName: 'Submitted On', width: 130, align: 'center', headerAlign: 'center' },
-    { field: 'status', headerName: 'Status', width: 140, align: 'center', headerAlign: 'center', renderCell: (params) => (
-      <div style={{ color: params.value === 'Not Reviewed' ? 'red-100' : 'inherit' }}>
-        {params.value}
-      </div>
-    )},
+    { field: 'name', headerName: 'Version', width: 100, align: 'center', headerAlign: 'center'  },
+    {
+      field: 'submitted by',
+      headerName: 'Submitted By',
+      width: 220,
+      //align: 'center',
+      headerAlign: 'center',
+      renderCell: (params) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {params.row.ProfilePicture && (
+            <Avatar
+              src={params.row.ProfilePicture}
+              alt={`Profile Pic`}
+              className = "rounded-xs"
+            />
+          )}
+          {params.value}
+        </div>
+      ),
+    },
+    { field: 'submitted on', headerName: 'Submitted On', width: 150, align: 'center', headerAlign: 'center' },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 140,
+      align: 'center',
+      headerAlign: 'center',
+      renderCell: (params) => (
+        <div style={{ color: params.value === 'Accepted' ? 'green' : (params.value === 'Not Reviewed' ? 'red' : 'inherit') }}>
+          {params.value}
+        </div>
+      ),
+    },
     { 
       field: 'change message', 
       headerName: 'Change Message', 
@@ -122,7 +157,7 @@ const VersionDetails = ({onSelectionClick}) => {
         headerName: 'Your Remarks', 
         width: 200, 
         headerAlign: 'center',
-    }
+     },
   ];
 
   return (
@@ -178,7 +213,7 @@ const VersionDetails = ({onSelectionClick}) => {
             sx={{
               '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' },
               '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': { py: '15px' },
-              '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { py: '22px' },
+              '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { py: '30px' },
             }}
           />
         </div>

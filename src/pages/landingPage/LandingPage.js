@@ -52,13 +52,18 @@ const LandingPage = () => {
         if(response.data.isSupervisor)
         {
           setUserAsSupervisor(response.data.userID);
+          localStorage.setItem('ID', response.data.userID);
           setTimeout(() => {
             navigate("/supervisor-page");
           }, 1220);
         }
         else 
         {
-
+          setUserAsMember(response.data.userID);
+          localStorage.setItem('ID', response.data.userID);
+          setTimeout(() => {
+            navigate("/member-page");
+          }, 1220);
         }
       })
       .catch(error => {
