@@ -57,6 +57,18 @@ const VersionDetails = ({onSelectionClick}) => {
             {row.Name || ''}
           </div>
         ),
+        'submitted by': (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {row.ProfilePicture && (
+              <img
+                src={row.ProfilePicture}
+                alt={`Profile Pic`}
+                style={{ marginRight: '8px', width: '24px', height: '24px', borderRadius: '50%' }}
+              />
+            )}
+            {row.Name || ''}
+          </div>
+        ),
         'submitted on': convertDate(row.Submission_Date) || '',
         status: row.Status || '',
         'change message': row.Change_log || '',
