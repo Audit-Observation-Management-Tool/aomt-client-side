@@ -3,27 +3,48 @@ import BarChart from "../../../components/charts/barCharts/BarChart";
 import DocumentationProgressCards from "../../../components/cards/ProgressCards/DocumentationProgressCards";
 import TeamMembersDatagrid from "../../../components/datagrids/teamMembersDatagrid.js/TeamMembersDatagrid";
 import axios from 'axios';
+import { DataGrid, GridLoadingOverlay } from '@mui/x-data-grid';
 import Loader from "../../../components/loaders/Loader";
 import { convertDate } from "../../../utils/dateConverter/ConvertDate";
 import { useState, useEffect } from "react";
 
-const ViewDocumentationProgress = ({onSelectionClick}) => {
+const ViewDocumentationProgress = ({ onSelectionClick }) => {
   const [cardCount, setCardCount] = useState(0);
   const [height, setHeight] = useState(400);
   const [loading, setLoading] = useState(true);
-  const [selectedCardData, setSelectedCardData] = useState(null);
-
+  const [rows, setRows] = useState([]);
+  const [data, setData] = useState([]);
   const software = JSON.parse(localStorage.getItem('software'));
 
-  const [data, setData] = useState([]);
+  const columns = [
+    { field: 'id', headerName: 'Member ID', width: 180, align: 'center', headerAlign: 'center' },
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 220,
+      headerAlign: 'center',
+      renderCell: (params) => (
+        <div style={{ display: 'flex', }}>
+          {params.row.ProfilePicture && (
+            <Avatar src={params.row.ProfilePicture} alt={`Profile Pic`} className="rounded-xs" />
+          )}
+          {params.value}
+        </div>
+      ),
+    },
+    { field: 'email', headerName: 'Email', width: 210, align: 'center', headerAlign: 'center' },
+    { field: 'contact', headerName: 'Contact', width: 200,align: 'center', headerAlign: 'center' },
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const apiUrl = process.env.REACT_APP_BASE_URL;
-        const response = await axios.get(`${apiUrl}documents/fetch-document-progress/${software.softwareID}`);
-        if (Array.isArray(response.data) && response.data.length > 0) 
-        {
+        const response = await axios.get(
+          `${apiUrl}documents/fetch-document-progress/${software.softwareID}`
+        );
+
+        if (Array.isArray(response.data) && response.data.length > 0) {
           const extractedData = response.data.map(([result]) => ({
             Type: result?.[0]?.Type,
             Status: result?.[0]?.Status,
@@ -32,56 +53,81 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
             Software_ID: result?.[0]?.Software_ID,
             Software_Name: result?.[0]?.Software_name,
             Document_ID: result?.[0]?.Document_ID,
-          }))
-          .filter(item => 
-            item.Type !== null && 
-            item.Status !== null && 
-            item.Deadline !== null && 
-            item.Team_Member_ID.length > 0
+          })).filter(
+            (item) =>
+              item.Type !== null &&
+              item.Status !== null &&
+              item.Deadline !== null &&
+              item.Team_Member_ID.length > 0
           );
+
           setData(extractedData);
           setCardCount(extractedData.length);
-        } 
-        else 
-        {
+        } else {
           console.error('Empty or invalid response data:', response.data);
         }
-      } 
-      catch (error) 
-      {
+      } catch (error) {
         console.error('Error fetching data:', error);
-      } 
-      finally 
-      {
+      }
+    };
+
+    const fetchMemberData = async () => {
+      try {
+        const apiUrl = process.env.REACT_APP_BASE_URL;
+        const response = await axios.post(`${apiUrl}documents/fetch-member-list`, {
+          softwareID: software.softwareID,
+        });
+
+        const data = response.data;
+
+        const rowsWithIds = data.map((row) => ({
+          id: row.Member_ID,
+          name: (
+          <div style={{ display: 'flex',  }}>
+            {row.ProfilePicture && (
+              <img
+                src={row.ProfilePicture}
+                alt={`Profile Pic`}
+                className="mr-2 w-12 h-12 rounded-full" 
+              />
+            )}
+            {row.Name || ''}
+          </div>
+        ),
+        email: row.Email,
+        contact: row.Phone,
+        }));
+
+        setRows(rowsWithIds);
+      } catch (error) {
+        console.error('Error fetching member data:', error);
+      } finally {
         setLoading(false);
       }
     };
-  
+
     fetchData();
-  }, []);
+    fetchMemberData();
+  }, [software.softwareID]);
 
-  const handleClick = (option) => {
-    onSelectionClick(option); 
-  }
-
-  const handleCardClick = (data) => {
-    console.log("item: ", data);
-    localStorage.setItem('cardData', JSON.stringify(data));
-  }
   useEffect(() => {
-    if (cardCount == 0) 
-    {
+    if (cardCount === 0) {
       setHeight(550);
-    }
-    else if (cardCount <= 2) 
-    {
+    } else if (cardCount <= 2) {
       setHeight(390);
-    }
-    else if(cardCount > 2)
-    {
+    } else if (cardCount > 2) {
       setHeight(260);
     }
   }, [cardCount]);
+
+  const handleClick = (option) => {
+    onSelectionClick(option);
+  };
+
+  const handleCardClick = (data) => {
+    console.log('item: ', data);
+    localStorage.setItem('cardData', JSON.stringify(data));
+  };
 
   return (
     <div className="w-[1337px] overflow-hidden flex flex-col items-center justify-start pt-3 pb-[61px] pr-[22px] pl-[25px] box-border tracking-[normal]">
@@ -155,8 +201,17 @@ const ViewDocumentationProgress = ({onSelectionClick}) => {
       </div>
       <div className= "self-stretch h-full flex flex-row items-start justify-start py-0 pr-2 pl-4 box-border max-w-full">
         <div className="self-stretch flex-1 relative overflow-hidden max-w-full h-[800px]">
-          <TeamMembersDatagrid
-          height={height}
+        <DataGrid
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5, 5, 20]}
+            getRowHeight={() => 'auto'}
+            sx={{
+              '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' },
+              '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': { py: '15px' },
+              '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { py: '30px' },
+            }}
           />
         </div>
       </div>

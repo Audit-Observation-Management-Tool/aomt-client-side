@@ -51,19 +51,7 @@ const VersionDetails = ({onSelectionClick}) => {
               <img
                 src={row.ProfilePicture}
                 alt={`Profile Pic`}
-                style={{ marginRight: '8px', width: '24px', height: '24px', borderRadius: '50%' }}
-              />
-            )}
-            {row.Name || ''}
-          </div>
-        ),
-        'submitted by': (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {row.ProfilePicture && (
-              <img
-                src={row.ProfilePicture}
-                alt={`Profile Pic`}
-                style={{ marginRight: '8px', width: '24px', height: '24px', borderRadius: '50%' }}
+                style={{ marginRight: '8px', width: '35px', height: '35px', borderRadius: '50%' }}
               />
             )}
             {row.Name || ''}
@@ -120,23 +108,22 @@ const VersionDetails = ({onSelectionClick}) => {
     {
       field: 'submitted by',
       headerName: 'Submitted By',
-      width: 220,
+      width: 240,
       //align: 'center',
       headerAlign: 'center',
       renderCell: (params) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {params.row.ProfilePicture && (
-            <Avatar
-              src={params.row.ProfilePicture}
-              alt={`Profile Pic`}
-              className = "rounded-xs"
-            />
-          )}
-          {params.value}
-        </div>
+        {params.row.ProfilePicture && (
+          <Avatar
+            src={params.row.ProfilePicture}
+            alt={`Profile Pic`}
+          />
+        )}
+        {params.value}
+      </div>
       ),
     },
-    { field: 'submitted on', headerName: 'Submitted On', width: 150, align: 'center', headerAlign: 'center' },
+    { field: 'submitted on', headerName: 'Submitted On', width: 200, align: 'center', headerAlign: 'center' },
     {
       field: 'status',
       headerName: 'Status',
@@ -152,7 +139,7 @@ const VersionDetails = ({onSelectionClick}) => {
     { 
       field: 'change message', 
       headerName: 'Change Message', 
-      width: 420, 
+      width: 380, 
       headerAlign: 'center',
       renderCell: (params) => (
         <div style={{ whiteSpace: 'pre-line' }}>
@@ -167,7 +154,8 @@ const VersionDetails = ({onSelectionClick}) => {
       { 
         field: 'remarks', 
         headerName: 'Your Remarks', 
-        width: 200, 
+        width: 150, 
+        align: 'center',
         headerAlign: 'center',
      },
   ];
