@@ -88,7 +88,7 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
               <img
                 src={row.ProfilePicture}
                 alt={`Profile Pic`}
-                className="mr-2 w-12 h-12 rounded-full" 
+                className="mr-2 w-10 h-10 rounded-full" 
               />
             )}
             {row.Name || ''}
