@@ -123,7 +123,7 @@ const VersionDetails = ({onSelectionClick}) => {
       </div>
       ),
     },
-    { field: 'submitted on', headerName: 'Submitted On', width: 200, align: 'center', headerAlign: 'center' },
+    { field: 'submitted on', headerName: 'Submitted On', width: 230, align: 'center', headerAlign: 'center' },
     {
       field: 'status',
       headerName: 'Status',
@@ -139,7 +139,7 @@ const VersionDetails = ({onSelectionClick}) => {
     { 
       field: 'change message', 
       headerName: 'Change Message', 
-      width: 380, 
+      width: 360, 
       headerAlign: 'center',
       renderCell: (params) => (
         <div style={{ whiteSpace: 'pre-line' }}>
