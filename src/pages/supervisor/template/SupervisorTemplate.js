@@ -53,7 +53,7 @@ const SupervisorTemplate = () => {
   }
 
   return (
-    <div className="h-[737px] w-full relative bg-gray-100 overflow-hidden flex flex-col items-start justify-start tracking-[normal] text-left text-base text-darkslategray-100 font-roboto">
+    <div className="h-[735px] w-full relative bg-gray-100 overflow-hidden flex flex-col items-start justify-start tracking-[normal] text-left text-base text-darkslategray-100 font-roboto">
     {
       loading && (
           <Loader />
