@@ -4,6 +4,7 @@ import LandingPage from "./pages/landingPage/LandingPage";
 import SupervisorTemplate from "./pages/supervisor/template/SupervisorTemplate";
 import ViewDocumentationProgress from "./pages/supervisor/viewDocumentationProgress/ViewDocumentationProgress";
 import MemberTemplate from "./pages/members/template/MemberTemplate";
+import MemberDashboard from "./pages/members/dashboard/MemberDashboard";
 
 function App() {
   const action = useNavigationType();
@@ -51,6 +52,7 @@ function App() {
       <Route path="/" element={<LandingPage/>} />
       <Route path="/supervisor-page" element={<SupervisorTemplate />} />
       <Route path="/member-page" element = {<MemberTemplate />} />
+      <Route path="/dashboard" element = {<MemberDashboard />} />
     </Routes>
   );
 }
