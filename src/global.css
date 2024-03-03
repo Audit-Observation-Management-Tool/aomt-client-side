@@ -1,11 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   @apply leading-[normal] m-0;
+
+  .editor-class {
+    @apply bg-[white] text-black border border-solid border-[#ccc] flex-col w-[400px] h-[200px] overflow-hidden pl-2 pr-2 pb-2 rounded-8xs ;
+
+    &:focus {
+      @apply border-seagreen-300;
+    }
+  }
+
+  .toolbar-class {
+    @apply border border-solid border-[#ccc] text-black;
+  }
 }
+
 *,
 ::before,
 ::after {

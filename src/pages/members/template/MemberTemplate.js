@@ -3,6 +3,7 @@ import { useUserContext } from "../../../contexts/UserContext";
 import axios from 'axios';
 import Loader from "../../../components/loaders/Loader";
 import UploadDocuments from "../uploadDocuments/UploadDocuments";
+import MemberDashboard from "../dashboard/MemberDashboard";
 
 const MemberTemplate = () => {
 
@@ -85,7 +86,7 @@ const MemberTemplate = () => {
             </div>
           </div>
         </div>
-        <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-silver" />
+        <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-gray-300" />
       </div>
 
 
@@ -94,6 +95,8 @@ const MemberTemplate = () => {
         <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-100 ml-1 mt-2 mr-2 mq900:max-w-full">
           {/* { selectedFrame === "Add Software" && <ViewDocumentationProgress /> } */}
           { selectedFrame === "uploadDocuments" && <UploadDocuments onSelectionClick={handleChildrenClick} /> }
+
+          { selectedFrame === "memberDashboard" && <MemberDashboard onSelectionClick={handleChildrenClick} /> }
 
           
         </div>
