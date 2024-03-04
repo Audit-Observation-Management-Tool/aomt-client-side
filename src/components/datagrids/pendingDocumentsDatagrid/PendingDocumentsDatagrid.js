@@ -44,7 +44,8 @@ const rows = [
   { id: 1, MemberID: '#481783', MemberName: 'Sumaya Sanchita', Email: 'sanchita@gmail.com', ContactNumber: '01811749489' },
 ];
 
-export default function PendingDocumentsDatagrid() {
+export default function PendingDocumentsDatagrid() 
+{
   return (
     <Box sx={{ height: 244, width: 735, backgroundColor: "white" }}>
       <DataGrid

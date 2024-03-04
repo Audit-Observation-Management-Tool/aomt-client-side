@@ -5,12 +5,25 @@ import axios from 'axios';
 import Loader from "../../../components/loaders/Loader";
 import ViewDocumentationProgress from "../viewDocumentationProgress/ViewDocumentationProgress";
 import VersionDetails from "../versionDetails/VersionDetails";
+import PortalPopup from "../../../components/popups/PortalPopup";
+import Logout from "../../../components/popups/Logout";
 
 const SupervisorTemplate = () => {
 
   const supervisorID = localStorage.getItem('ID');
   const [supervisorData, setSupervisorData] = useState(null); 
   const [loading, setLoading] = useState(true);
+
+  const [isSignoutConfirmationPopupOpen, setSignoutConfirmationPopupOpen] =
+  useState(false);
+
+  const openSignoutConfirmationPopup = useCallback(() => {
+    setSignoutConfirmationPopupOpen(true);
+  }, []);
+
+  const closeSignoutConfirmationPopup = useCallback(() => {
+    setSignoutConfirmationPopupOpen(false);
+  }, []);
 
   useEffect(() => {
     const fetchSupervisorData = async () => {
@@ -135,19 +148,15 @@ const SupervisorTemplate = () => {
             </div>
             <div className="self-stretch flex flex-row items-center justify-start py-0 pr-0 pl-5 gap-[0px_10px]">
               <div className="h-[17px] flex flex-col items-start justify-start pt-0 px-0 pb-0.5 box-border">
-                <img
-                  className="w-[15px] h-[14.6px] relative"
-                  loading="eager"
-                  alt=""
-                  src="/calendar.svg"
-                />
+               
               </div>
               <div className="h-6 flex-1 relative font-medium flex items-center">
-                VIEW CALENDAR
+                
               </div>
             </div>
           </div>
-          <div className="self-stretch flex flex-row items-center justify-start py-0 pr-0 pl-5 gap-[0px_11px]">
+          <div className="self-stretch flex flex-row items-center justify-start py-0 pr-0 pl-5 gap-[0px_11px]"
+          onClick={openSignoutConfirmationPopup}>
             <img
               className="h-[19px] w-[15px] relative"
               loading="eager"
@@ -167,6 +176,15 @@ const SupervisorTemplate = () => {
           
         </div>
       </section>
+      {isSignoutConfirmationPopupOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeSignoutConfirmationPopup}
+        >
+          <Logout onClose={closeSignoutConfirmationPopup} />
+        </PortalPopup>
+      )}
        </>
      )}
     </div>

@@ -3,6 +3,8 @@ import PendingDocumentsDatagrid from "../../../components/datagrids/pendingDocum
 import CompletedTasksCard from "../../../components/cards/completedTasksCard/CompletedTasksCard";
 import AcceptedDocumentsDatagrid from "../../../components/datagrids/acceptedDocumentsDatagrid/AcceptedDocumentsDatagrid";
 
+///Fetch the pending tasks 
+
 const MemberDashboard = ( { onSelectionClick } ) => {
   return (
       <section className="w-[1306px] flex flex-row items-start justify-start px-10 pt-5 pl-20 box-border max-w-full text-left text-xl text-dimgray-600 font-roboto">
