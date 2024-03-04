@@ -1,14 +1,45 @@
 import { TextField } from "@mui/material";
 import FileUploader from "../../../components/fileUploader/FileUploader"; 
 import React, { useState } from "react";
-import { EditorState } from "draft-js";
+import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "draft-js/dist/Draft.css";
+import axios from 'axios';
 
 const UploadDocumentSection = () => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const toolbarOptions = {
+    const handleEditorChange = (newEditorState) => {
+        setEditorState(newEditorState);
+    };
+
+    const uploadDocument = () => {
+        const contentState = editorState.getCurrentContent();
+        const rawContentState = convertToRaw(contentState);
+        const htmlContent = JSON.stringify(rawContentState);
+
+        console.log(htmlContent);
+
+        axios.post(`${process.env.REACT_APP_BASE_URL}documents/upload-change-message`, {
+             /*softwareID: `${cardData.Software_ID}`
+              documentID: `${cardData.Document_ID}`,
+                */
+              memberID: 1, 
+              documentID: 1, 
+              content: htmlContent,
+              softwareID: 1,
+             
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    };
+
+    const toolbarOptions = 
+    {
       options: ["inline", "blockType", "link"],
       inline: {
         options: ["bold", "italic", "underline", "strikethrough"],
@@ -17,6 +48,7 @@ const UploadDocumentSection = () => {
         options: ["Normal", "Blockquote", "Code", "Header"],
       },
     };
+    
     return (
         <div className="w-[450px] rounded-3xs bg-white box-border overflow-hidden shrink-0 flex flex-col items-center justify-start pt-8 pb-[40px] pr-[26px] pl-7 gap-[22px_0px] min-w-[492px] max-w-full text-center text-sm text-white font-roboto border-[1px] border-solid border-gray-300 mq1250:flex-1 mq750:pt-[21px] mq750:pb-5 mq750:box-border mq750:min-w-full">
 
@@ -42,6 +74,7 @@ const UploadDocumentSection = () => {
           
               defaultEditorState={editorState}
               onEditorStateChange={setEditorState}
+              onEditorStateChange={handleEditorChange}
               editorClassName="editor-class"
               toolbarClassName="toolbar-class"
               toolbar={toolbarOptions}
@@ -49,9 +82,10 @@ const UploadDocumentSection = () => {
             />
 
 
-            <div className="self-stretch rounded-3xs bg-seagreen-200 overflow-hidden flex flex-row items-center justify-center py-5 pt-px px-0 pb-0 box-border whitespace-nowrap w-[400px]">
-                <div className="h-11 flex-1 relative font-semibold flex items-center justify-center w-[450px]">
-                    Upload Document
+            <div className="self-stretch rounded-3xs hover:bg-seagreen-300 cursor-pointer bg-seagreen-200 overflow-hidden flex flex-row items-center justify-center right-[20px] pt-px px-5 pb-0 box-border whitespace-nowrap w-[400px]">
+                <div className="h-11 flex-1 relative font-semibold flex items-center justify-center w-[450px]"
+                onClick={uploadDocument}>
+                    Send Change Message
                 </div>
             </div>
         </div>

@@ -74,6 +74,8 @@ const MemberDashboard = ({ onSelectionClick }) => {
   }, [rows]);
 
 
+const MemberDashboard = ( { onSelectionClick } ) => {
+
   return (
     <section className="w-[1306px] flex flex-row items-start justify-start px-10 pt-5 pl-20 box-border max-w-full text-left text-xl text-dimgray-600 font-roboto">
       <div className="flex-1 flex flex-col items-start justify-start gap-[20px_0px] max-w-full">
