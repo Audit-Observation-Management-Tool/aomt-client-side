@@ -13,9 +13,11 @@ const VersionDetails = ({onSelectionClick}) => {
   const [isCommentPopupOpen, setCommentPopupOpen] = useState(false);
 
   const storedData = localStorage.getItem('cardData');
+
   const cardData = storedData ? JSON.parse(storedData) : null;
   const [softwareName, setSoftwareName] = useState(cardData.Software_Name);
   const [documentName, setDocumentName] = useState(" / " + cardData.Type);
+  localStorage.setItem('docID', `${cardData.Document_ID}`);
 
   const openCommentPopup = useCallback(() => {
     setCommentPopupOpen(true);
@@ -51,19 +53,7 @@ const VersionDetails = ({onSelectionClick}) => {
               <img
                 src={row.ProfilePicture}
                 alt={`Profile Pic`}
-                style={{ marginRight: '8px', width: '24px', height: '24px', borderRadius: '50%' }}
-              />
-            )}
-            {row.Name || ''}
-          </div>
-        ),
-        'submitted by': (
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            {row.ProfilePicture && (
-              <img
-                src={row.ProfilePicture}
-                alt={`Profile Pic`}
-                style={{ marginRight: '8px', width: '24px', height: '24px', borderRadius: '50%' }}
+                style={{ marginRight: '8px', width: '35px', height: '35px', borderRadius: '50%' }}
               />
             )}
             {row.Name || ''}
@@ -72,7 +62,7 @@ const VersionDetails = ({onSelectionClick}) => {
         'submitted on': convertDate(row.Submission_Date) || '',
         status: row.Status || '',
         'change message': row.Change_log || '',
-        remarks: row.Remarks
+        'remarks': row.Remarks
       }));
 
       setRows(rowsWithIds);
@@ -120,23 +110,22 @@ const VersionDetails = ({onSelectionClick}) => {
     {
       field: 'submitted by',
       headerName: 'Submitted By',
-      width: 220,
+      width: 240,
       //align: 'center',
       headerAlign: 'center',
       renderCell: (params) => (
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          {params.row.ProfilePicture && (
-            <Avatar
-              src={params.row.ProfilePicture}
-              alt={`Profile Pic`}
-              className = "rounded-xs"
-            />
-          )}
-          {params.value}
-        </div>
+        {params.row.ProfilePicture && (
+          <Avatar
+            src={params.row.ProfilePicture}
+            alt={`Profile Pic`}
+          />
+        )}
+        {params.value}
+      </div>
       ),
     },
-    { field: 'submitted on', headerName: 'Submitted On', width: 150, align: 'center', headerAlign: 'center' },
+    { field: 'submitted on', headerName: 'Submitted On', width: 230, align: 'center', headerAlign: 'center' },
     {
       field: 'status',
       headerName: 'Status',
@@ -152,7 +141,7 @@ const VersionDetails = ({onSelectionClick}) => {
     { 
       field: 'change message', 
       headerName: 'Change Message', 
-      width: 420, 
+      width: 360, 
       headerAlign: 'center',
       renderCell: (params) => (
         <div style={{ whiteSpace: 'pre-line' }}>
@@ -167,7 +156,8 @@ const VersionDetails = ({onSelectionClick}) => {
       { 
         field: 'remarks', 
         headerName: 'Your Remarks', 
-        width: 200, 
+        width: 150, 
+        align: 'center',
         headerAlign: 'center',
      },
   ];
