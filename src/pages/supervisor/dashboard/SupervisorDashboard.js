@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../../../contexts/UserContext';
-import SoftwareCard from '../../../components/cards/SoftwareCard/SoftwareCard';
+import SoftwareCard1 from '../../../components/cards/SoftwareCard/SoftwareCard1';
 import { convertDate } from '../../../utils/dateConverter/ConvertDate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../components/loaders/Loader';
+import { convertDateWithoutTime } from '../../../utils/dateConverter/ConvertDateWithoutTime';
 
 const SupervisorDashboard = ({onSelectionClick}) => {
   const [softwareData, setSoftwareData] = useState([]);
@@ -27,11 +28,15 @@ useEffect(() => {
 
       const { data } = response;
 
+      console.log("data: ", data);
+
       if (Array.isArray(data)) {
         const formattedSoftwareData = data.map(result => ({
           softwareID: result.Software_ID,
           softwareName: result.Software_name,
-          deadline: convertDate(result.Deadline),
+          description: result.Description || "",
+          created_on: convertDateWithoutTime(result.Created_On),
+          deadline: convertDateWithoutTime(result.Deadline),
         }));
 
         if (isMounted) {
@@ -66,7 +71,7 @@ useEffect(() => {
   };
 
   return (
-    <div className="w-[1275px] h-[604px] bg-grayy overflow-hidden flex flex-row items-start justify-start pt-[52px] px-[59px] pb-[410px] box-border">
+    <div className="w-[1350px] h-full bg-grayy overflow-visible flex flex-row items-start justify-start pt-[52px] px-[59px] pb-[410px] box-border">
      {
       loading && (
         <Loader />
@@ -74,12 +79,14 @@ useEffect(() => {
      }
      {(
       !loading &&
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-y-8 gap-x-7">
         {softwareData.map((software, index) => (
-          <SoftwareCard
+          <SoftwareCard1
             key={index}
             title={software.softwareName}
             deadline={`Deadline: ${software.deadline}`} 
+            description={software.description} 
+            createdOn={software.created_on}
             onClick={() => handleCardClick(software)}
           />
         ))}
