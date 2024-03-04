@@ -24,23 +24,23 @@ const CompletionCard = () => {
 
     return (
         <div className="mt-0.05">
-        <p className="text-sm font-semibold text-center text-gray">Required Documents</p>
-
-        {documentData.map((document) => (
-          <div key={document.Document_ID} className="my-0.025 p-0.05 border rounded bg-gray-100">
-            <p className="text-xs font-semibold">{document.Document_Type}</p>
-            {document.Status === 'Accepted' ? (
-              <p className="text-xs text-green-600">
-                <FontAwesomeIcon icon={faCheckCircle} /> Accepted
-              </p>
-            ) : (
-              <p className="text-xs text-red-600">
-                <FontAwesomeIcon icon={faTimesCircle} /> Pending
-              </p>
-            )}
-          </div>
-        ))}
-      </div>
+            <p className="text-sm font-semibold text-center text-gray">Required Documents</p>
+            {documentData.map((document) => (
+                <div key={document.Document_ID} className="my-0.025 p-0.05 border rounded bg-gray-100 flex items-center">
+                <p className="text-xs font-semibold flex-1">{document.Document_Type}</p>
+                {document.Status === 'Accepted' ? (
+                  <p className="text-xs text-green-600">
+                    <FontAwesomeIcon icon={faCheckCircle} /> Accepted
+                  </p>
+                ) : (
+                  <p className="text-xs text-red-600">
+                    <FontAwesomeIcon icon={faTimesCircle} /> Pending
+                  </p>
+                )}
+              </div>
+              
+            ))}
+        </div>
     );
 };
 

@@ -80,7 +80,7 @@ const BarChartComponent = () => {
               series={[
                 {
                   dataKey: 'count',
-                  color: '#5388D8',
+                  color: '#80ACEE',
                 },
               ]}
               layout="horizontal"

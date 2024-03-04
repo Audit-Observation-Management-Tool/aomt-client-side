@@ -27,7 +27,7 @@ const ProgressPieChart = ({ progress }) => {
   }, []);
 
   const customText = [
-    { text: `${percentage}%`, size: "30px", color: "#DF7070", x: 100, y: 93 },
+    { text: `${percentage}%`, size: "30px", color: "#DF7070", x: 100, y: 100 },
   ];
 
   const arcFillColor = { gradient: ["#DF7070", "#DF7070"] };

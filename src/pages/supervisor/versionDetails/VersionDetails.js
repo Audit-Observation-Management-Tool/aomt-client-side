@@ -13,9 +13,11 @@ const VersionDetails = ({onSelectionClick}) => {
   const [isCommentPopupOpen, setCommentPopupOpen] = useState(false);
 
   const storedData = localStorage.getItem('cardData');
+
   const cardData = storedData ? JSON.parse(storedData) : null;
   const [softwareName, setSoftwareName] = useState(cardData.Software_Name);
   const [documentName, setDocumentName] = useState(" / " + cardData.Type);
+  localStorage.setItem('docID', `${cardData.Document_ID}`);
 
   const openCommentPopup = useCallback(() => {
     setCommentPopupOpen(true);
@@ -60,7 +62,7 @@ const VersionDetails = ({onSelectionClick}) => {
         'submitted on': convertDate(row.Submission_Date) || '',
         status: row.Status || '',
         'change message': row.Change_log || '',
-        remarks: row.Remarks
+        'remarks': row.Remarks
       }));
 
       setRows(rowsWithIds);
