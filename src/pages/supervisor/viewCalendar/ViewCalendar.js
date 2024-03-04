@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../../../components/loaders/Loader';
 import { convertDateWithoutTime } from '../../../utils/dateConverter/ConvertDateWithoutTime';
 
-const SupervisorDashboard = ({onSelectionClick}) => {
+const ViewCalendar = ({onSelectionClick}) => {
   const [softwareData, setSoftwareData] = useState([]);
   const navigate = useNavigate();
   const [selectedSoftwareID, setSelectedSoftwareID] = useState(null);
@@ -36,7 +36,6 @@ useEffect(() => {
           softwareName: result.Software_name,
           description: result.Description || "",
           created_on: convertDateWithoutTime(result.Created_On),
-          assignees: result.Assigned_Members_Count,
           deadline: convertDateWithoutTime(result.Deadline),
         }));
 
@@ -88,7 +87,6 @@ useEffect(() => {
             deadline={`Deadline: ${software.deadline}`} 
             description={software.description} 
             createdOn={software.created_on}
-            assignees={software.assignees}
             onClick={() => handleCardClick(software)}
           />
         ))}
@@ -99,4 +97,4 @@ useEffect(() => {
   );
 };
 
-export default SupervisorDashboard;
+export default ViewCalendar;

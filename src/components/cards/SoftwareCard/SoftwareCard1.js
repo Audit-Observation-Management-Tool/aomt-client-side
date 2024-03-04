@@ -1,10 +1,7 @@
 import { useCallback } from "react";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
-const SoftwareCard1 = ({ title, deadline, description, createdOn, onClick }) => {
-  const onRectangleClick = useCallback(() => {
-    // Please sync "View Software" to the project
-  }, []);
+const SoftwareCard1 = ({ title, deadline, description, createdOn, assignees, onClick }) => {
 
   return (
     <div className="w-[280px] flex flex-col items-center justify-start pt-4 px-[11px] pb-[13px] box-border relative gap-[23px_0px] text-left text-mini text-black rounded-8xs font-roboto cursor-pointer hover:shadow-[0px_0px_5px_4px_rgba(0,_0,_0,_0.1)] shadow-[0px_0px_20px_2px_rgba(0,_0,_0,_0.1)] "   
@@ -45,7 +42,7 @@ const SoftwareCard1 = ({ title, deadline, description, createdOn, onClick }) => 
       <div className="self-stretch flex flex-row items-start justify-start py-0 pr-[3px] pl-px text-4xs">
         <div className="flex-1 flex flex-row items-center justify-between gap-[20px]">
           <div className="flex flex-row items-center justify-start gap-[0px_5px]">
-            <div className="relative font-light z-[1]">2 Assignees</div>
+            <div className="relative font-light z-[1]">{assignees} Assignees</div>
           </div>
           <div className="relative font-light z-[1]">
             Created on {createdOn}

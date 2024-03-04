@@ -97,7 +97,7 @@ const SupervisorTemplate = () => {
                   {supervisorData[0].Name}
                 </div>
                 <div className="flex flex-row items-start justify-start py-0 pr-0 pl-5 text-xs text-slategray">
-                  <div className="relative z-[1]">Supervisor, {supervisorData[0].Division} Division</div>
+                  <div className="relative z-[1]">Supervisor, {supervisorData[0].Division} Division ({supervisorData[0].Branch})</div>
                 </div>
               </div>
               <img
@@ -139,10 +139,10 @@ const SupervisorTemplate = () => {
                     className="h-[18px] w-[16.7px] relative"
                     loading="eager"
                     alt=""
-                    src="/addSoftware.svg"
+                    src="/calendar.svg"
                   />
                   <div className="h-6 flex-1 relative font-medium flex items-center">
-                    ADD SOFTWARE
+                    VIEW CALENDAR
                   </div>
                 </div>
               </div>
