@@ -9,6 +9,13 @@ import axios from 'axios';
 
 const UploadDocumentSection = () => {
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
+
+    const memberID = localStorage.getItem('ID');
+    const softwareName = localStorage.getItem('Software_name');
+    const documentID = localStorage.getItem('Document_ID');
+    const documentName = localStorage.getItem('Document_name');
+    const softwareID = localStorage.getItem('Software_ID');
+
     const handleEditorChange = (newEditorState) => {
         setEditorState(newEditorState);
     };
@@ -24,10 +31,10 @@ const UploadDocumentSection = () => {
              /*softwareID: `${cardData.Software_ID}`
               documentID: `${cardData.Document_ID}`,
                 */
-              memberID: 1, 
-              documentID: 1, 
+              memberID: memberID, 
+              documentID: documentID, 
               content: htmlContent,
-              softwareID: 1,
+              softwareID: softwareID,
              
             })
             .then(response => {

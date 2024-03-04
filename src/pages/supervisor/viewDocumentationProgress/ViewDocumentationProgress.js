@@ -119,7 +119,7 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
     } else if (cardCount <= 2) {
       setHeight(390);
     } else if (cardCount > 2) {
-      setHeight(230);
+      setHeight(220);
     }
   }, [cardCount]);
 
@@ -159,13 +159,13 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
             <section className="self-stretch flex flex-row items-start justify-start gap-[0px_20px] max-w-full text-left text-xs text-dimgray-400 font-roboto mq1050:flex-wrap">
               <div className="w-[385px] flex flex-col items-start justify-start pt-2.5 px-0 pb-0 box-border min-w-[385px] max-w-full mq725:min-w-full mq1050:flex-1 ">
                 <div className="self-stretch flex flex-col items-start justify-start gap-[19px_0px] max-w-full">
-                  <div className="self-stretch rounded-6xs bg-white shadow-[0px_0px_4px_rgba(0,_0,_0,_0.15)] flex flex-row items-end justify-start pt-[26px] pb-[31px] pr-[37px] pl-[27px] gap-[0px_16px] mq450:flex-wrap">
+                  <div className="self-stretch rounded-6xs bg-white shadow-[0px_0px_4px_rgba(0,_0,_0,_0.15)] flex flex-row items-end justify-start pt-[26px] pr-[37px] pl-[27px] gap-[0px_16px] mq450:flex-wrap border-box border-gray-300 border-solid border-1px">
 
                     <ProgressPieChart />
 
                     <CompletionCard documentData={documentData} />
                   </div>
-                  <div className="self-stretch bg-red overflow-hidden flex flex-row items-center justify-top box-border max-w-full">
+                  <div className="self-stretch overflow-hidden flex flex-row items-center justify-top box-border max-w-full">
                     <BarChart />
                   </div>
                 </div>

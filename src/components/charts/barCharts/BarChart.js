@@ -11,7 +11,7 @@ const chartSetting = {
     },
   ],
   width: 400,
-  height: 270,
+  height: 290,
 };
 
 
@@ -68,12 +68,12 @@ const BarChartComponent = () => {
           <div
             style={{
               position: 'absolute',
-              top: 350,
+              top: 300,
               left: 23,
               right: 0,
               backgroundColor: 'white',
               width: 390,
-              height: 285,
+              height: 350,
               borderRadius: 10,
               border: '1px solid #ccc',
               overflow: 'hidden',
@@ -84,8 +84,8 @@ const BarChartComponent = () => {
               margin={{
                 left: 50,
                 right: 50,
-                top: 25,
-                bottom: 50,
+                top: 50,
+                bottom: 45,
               }}
               yAxis={[{ scaleType: 'band', dataKey: 'type' }]}
               series={[
