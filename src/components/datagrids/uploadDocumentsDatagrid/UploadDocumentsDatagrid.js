@@ -8,6 +8,9 @@ import { RawDataToReadableDataConverter } from '../../../utils/rawDataToReadable
 
 const UploadDocumentsDatagrid = () => {
 
+  const documentID = localStorage.getItem('Document_ID');
+  const softwareID = localStorage.getItem('Software_ID');
+
   const isJSON = (content) => {
     try 
     {
@@ -31,11 +34,8 @@ const UploadDocumentsDatagrid = () => {
   const fetchData = async () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}documents/fetch-version-details`, {
-      /*softwareID: `${cardData.Software_ID}`,
-        documentID: `${cardData.Document_ID}`,  */
-
-        softwareID: 1,
-        documentID: 1,
+        softwareID: `${documentID}`,
+        documentID: `${softwareID}`,
       });
 
       if (!response.data || response.data.length === 0) {

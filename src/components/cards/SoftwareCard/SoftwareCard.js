@@ -23,24 +23,14 @@ const SoftwareCard = ({ title, deadline, onClick }) => {
                                 </Typography>
                             </div>
                         </div>
-                        <div className="flex flex-row items-center justify-center text-xs text-red">
+                        <div className="flex flex-row items-center justify-center text-xs text-red-100">
                             <div className="relative font-medium">
                                 {deadline}
                             </div>
                         </div>
                     </div>
                 </div>
-                <div
-                    style={{
-                        position: 'absolute',
-                        bottom: -40,
-                        right: 4,
-                        width: '50%', 
-                        height: '60%', 
-                        backgroundColor: 'red', 
-
-                    }}
-                />
+               
             </CardContent>
         </Card>
     );

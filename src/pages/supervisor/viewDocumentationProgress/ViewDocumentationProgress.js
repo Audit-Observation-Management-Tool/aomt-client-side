@@ -8,6 +8,7 @@ import { DataGrid, GridLoadingOverlay } from '@mui/x-data-grid';
 import Loader from "../../../components/loaders/Loader";
 import { convertDate } from "../../../utils/dateConverter/ConvertDate";
 import { useState, useEffect } from "react";
+import { Box } from "@mui/material";
 
 const ViewDocumentationProgress = ({ onSelectionClick }) => {
   const [cardCount, setCardCount] = useState(0);
@@ -118,7 +119,7 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
     } else if (cardCount <= 2) {
       setHeight(390);
     } else if (cardCount > 2) {
-      setHeight(260);
+      setHeight(230);
     }
   }, [cardCount]);
 
@@ -185,12 +186,14 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
                   </div>
                 </div>
                 <div className="self-stretch h-full flex flex-row items-start justify-start py-0 pr-2 pl-4 box-border max-w-full">
-                  <div className="self-stretch flex-1 relative overflow-hidden max-w-full h-[800px]">
+                  <div className="self-stretch flex-1 relative overflow-hidden max-w-full  bg-white">
+                  <Box sx={{ height: height, width: 850, backgroundColor: "white" }}>
                     <DataGrid
+                   //   className={{height: ${height}}}
                       rows={rows}
                       columns={columns}
-                      pageSize={5}
-                      rowsPerPageOptions={[5, 5, 20]}
+                      pageSize={3}
+                      rowsPerPageOptions={[2, 2, 20]}
                       getRowHeight={() => 'auto'}
                       sx={{
                         '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': { py: '8px' },
@@ -198,6 +201,7 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
                         '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': { py: '30px' },
                       }}
                     />
+                  </Box>
                   </div>
                 </div>
               </div>

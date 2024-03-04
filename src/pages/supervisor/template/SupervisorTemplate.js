@@ -6,7 +6,7 @@ import Loader from "../../../components/loaders/Loader";
 import ViewDocumentationProgress from "../viewDocumentationProgress/ViewDocumentationProgress";
 import VersionDetails from "../versionDetails/VersionDetails";
 import PortalPopup from "../../../components/popups/PortalPopup";
-import Logout from "../../../components/popups/Logout";
+import SignoutConfirmationPopup from "../../../components/popups/SignoutConfirmationPopup";
 
 const SupervisorTemplate = () => {
 
@@ -109,10 +109,10 @@ const SupervisorTemplate = () => {
             </div>
           </div>
         </div>
-        <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-silver" />
+        <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-silver-100" />
       </div>
-      <section className="self-stretch h-[684px] flex flex-row items-start justify-start max-w-full text-left text-xs text-white font-roboto mq900:pl-0 mq900:pr-0 mq900:box-border">
-        <div className="w-[194px] bg-seagreen-200 overflow-hidden shrink-0 flex flex-col items-end justify-start pt-[30px] px-0 pb-[43px] box-border gap-[463px_0px] mq900:flex mq900:pt-5 mq900:pb-7 mq900:box-border">
+      <section className="self-stretch h-[692px] flex flex-row items-start justify-start max-w-full text-left text-xs text-white font-roboto mq900:pl-0 mq900:pr-0 mq900:box-border">
+        <div className="w-[194px] bg-seagreen-200 overflow-hidden shrink-0 flex flex-col items-end justify-start pt-[30px] px-0 pb-[38px] box-border gap-[463px_0px] mq900:flex mq900:pt-5 mq900:pb-7 mq900:box-border">
         
           <div className="self-stretch flex flex-col items-end justify-start pt-0 px-0 pb-[5px] gap-[16px_0px]">
             <div className="self-stretch flex flex-col items-start justify-start gap-[11px_0px]">
@@ -155,7 +155,7 @@ const SupervisorTemplate = () => {
               </div>
             </div>
           </div>
-          <div className="self-stretch flex flex-row items-center justify-start py-0 pr-0 pl-5 gap-[0px_11px]"
+          <div className="self-stretch flex flex-row items-center justify-start py-0 pr-0 pl-5 gap-[0px_11px] hover:bg-seagreen-100 h-[33px] cursor-pointer"
           onClick={openSignoutConfirmationPopup}>
             <img
               className="h-[19px] w-[15px] relative"
@@ -182,7 +182,7 @@ const SupervisorTemplate = () => {
           placement="Centered"
           onOutsideClick={closeSignoutConfirmationPopup}
         >
-          <Logout onClose={closeSignoutConfirmationPopup} />
+          <SignoutConfirmationPopup onClose={closeSignoutConfirmationPopup} />
         </PortalPopup>
       )}
        </>

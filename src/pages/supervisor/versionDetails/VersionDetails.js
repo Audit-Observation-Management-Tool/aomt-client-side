@@ -5,9 +5,22 @@ import { convertDate } from '../../../utils/dateConverter/ConvertDate';
 import axios from 'axios';
 import Loader from '../../../components/loaders/Loader';
 import SendRemarksPopup from '../../../components/popups/SendRemarksPopup';
+import { RawDataToReadableDataConverter } from '../../../utils/rawDataToReadableDataConverter/RawDataToReadableDataConverter';
 import PortalPopup from '../../../components/popups/PortalPopup';
 
 const VersionDetails = ({onSelectionClick}) => {
+
+  const isJSON = (content) => {
+    try 
+    {
+      JSON.parse(content);
+      return true;
+    } 
+    catch (error) 
+    {
+      return false;
+    }
+  };
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isCommentPopupOpen, setCommentPopupOpen] = useState(false);
@@ -44,6 +57,7 @@ const VersionDetails = ({onSelectionClick}) => {
       }
 
       const data = response.data;
+      console.log("data: ", data);
       const rowsWithIds = data.map((row, index) => ({
         id: index + 1,
         name: row.Version_No || '',
@@ -143,16 +157,30 @@ const VersionDetails = ({onSelectionClick}) => {
       headerName: 'Change Message', 
       width: 360, 
       headerAlign: 'center',
-      renderCell: (params) => (
-        <div style={{ whiteSpace: 'pre-line' }}>
-          {params.value.split('\n').map((item, index) => (
-            <React.Fragment key={index}>
-              {item}
-              <br />
-            </React.Fragment>
-          ))}
-        </div>
-      )},
+      renderCell: (params) => {
+        if (isJSON(params.value)) 
+        {
+          return (
+            <div style={{ whiteSpace: 'pre-line' }}>
+              {RawDataToReadableDataConverter(params.value)}
+            </div>
+          );
+        } 
+        else 
+        {
+          return (
+            <div style={{ whiteSpace: 'pre-line' }}>
+              {params.value.split('\n').map((item, index) => (
+                <React.Fragment key={index}>
+                  {item}
+                  <br />
+                </React.Fragment>
+              ))}
+            </div>
+          );
+        }
+      },
+    },
       { 
         field: 'remarks', 
         headerName: 'Your Remarks', 
