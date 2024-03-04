@@ -1,16 +1,36 @@
 import React, { useState, useEffect } from "react";
 import ArcProgress from "react-arc-progress";
+import axios from 'axios';
 
 const ProgressPieChart = ({ progress }) => {
-  const [customText, setCustomText] = useState([
-    { text: "80", size: "34px", color: "gray", x: 100, y: 105 },
-    { text: "%", size: "14px", color: "gray", x: 125, y: 109 },
-  ]);
+  const [percentage, setPercentage] = useState(0);
 
   useEffect(() => {
-  }, [progress]);
+    const fetchData = async () => {
+      try {
+        const apiUrl = process.env.REACT_APP_BASE_URL;
+        const response = await axios.get(`${apiUrl}documents/arcprogress`); 
+        const resultData = response.data;
 
-  const arcFillColor = { gradient: ["#208957", "#0b7046"] };
+        const totalRows = resultData.length;
+        const acceptedCount = resultData.filter(item => item.Status === 'Accepted').length;
+        const acceptedPercentage = (acceptedCount / totalRows) * 100;
+
+        setPercentage(acceptedPercentage.toFixed(1)); // Keep 2 decimal points
+      }
+      catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const customText = [
+    { text: `${percentage}%`, size: "30px", color: "#DF7070", x: 100, y: 100 },
+  ];
+
+  const arcFillColor = { gradient: ["#DF7070", "#DF7070"] };
 
   return (
     <>
@@ -28,7 +48,7 @@ const ProgressPieChart = ({ progress }) => {
       <ArcProgress
         thickness={20}
         fillColor={arcFillColor}
-        progress={progress}
+        progress={parseFloat(percentage) / 100} // Ensure progress is between 0 and 1
         customText={customText}
         style={{ position: "relative" }}
         observer={(current) => {

@@ -20,11 +20,13 @@ const SendRemarksPopup = ({ onClose }) => {
     
     console.log('Selected Status:', status);
     console.log('Remarks: ', remarks);
+    const documentID = localStorage.getItem('docID');
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}supervisor/review-doc`, {
         status,
         remarks,
+        documentID,
       });
 
       if (!response.data || response.data.length === 0) {
