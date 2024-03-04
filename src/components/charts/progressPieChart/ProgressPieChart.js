@@ -41,7 +41,7 @@ const ProgressPieChart = ({ progress }) => {
         fillColor={arcFillColor}
         progress={parseFloat(percentage) / 100} 
         customText={customText}
-        style={{ position: "relative" }}
+        style={{ position: "relative", align:"center"}}
         observer={(current) => {
           const { percentage, currentText } = current;
         }}

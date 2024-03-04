@@ -27,6 +27,12 @@ export default function FileUploader()
 {
   const [files, setFiles] = useState([]);
 
+  const memberID = localStorage.getItem('ID');
+  const softwareName = localStorage.getItem('Software_name');
+  const documentID = localStorage.getItem('Document_ID');
+  const documentName = localStorage.getItem('Document_name');
+  const softwareID = localStorage.getItem('Software_ID');
+
   const handleProcess = (fieldName, file, metadata, load, error, progress, abort) => {
     const formData = new FormData();
     formData.append('file', file);

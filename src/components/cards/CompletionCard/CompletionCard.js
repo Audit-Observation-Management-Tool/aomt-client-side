@@ -6,12 +6,15 @@ import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 const CompletionCard = () => {
     const [documentData, setDocumentData] = useState([]);
     const software = JSON.parse(localStorage.getItem('software'));
+    console.log("re: ",software.softwareID);
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const apiUrl = process.env.REACT_APP_BASE_URL;
                 const response = await axios.get(`${apiUrl}documents/arcprogress/${software.softwareID}`);
                 const resultData = response.data;
+
+            
 
                 setDocumentData(resultData);
             } catch (error) {
@@ -24,7 +27,7 @@ const CompletionCard = () => {
 
     return (
         <div className="pb-10">
-            <p className="text-sm font-semibold top-[10px] text-gray">Required Documents</p>
+           
             {documentData.map((document) => (
                 <div key={document.Document_ID} className="my-0.025 p-0.05 border rounded flex items-center">
                 <p className="text-xs font-semibold flex-1">{document.Document_Type}</p>
