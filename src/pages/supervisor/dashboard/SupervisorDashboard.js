@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../../../contexts/UserContext';
-import SoftwareCard1 from '../../../components/cards/SoftwareCard/SoftwareCard1';
+import SoftwareCard from '../../../components/cards/SoftwareCard/SoftwareCard';
 import { convertDate } from '../../../utils/dateConverter/ConvertDate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -12,7 +12,7 @@ const SupervisorDashboard = ({onSelectionClick}) => {
   const [softwareData, setSoftwareData] = useState([]);
   const navigate = useNavigate();
   const [selectedSoftwareID, setSelectedSoftwareID] = useState(null);
-  const { supervisorID } = useUserContext();
+  const supervisorID = localStorage.getItem('ID');
   const [loading, setLoading] = useState(true);
 
 useEffect(() => {
@@ -82,7 +82,7 @@ useEffect(() => {
       !loading &&
       <div className="flex flex-wrap gap-y-8 gap-x-7">
         {softwareData.map((software, index) => (
-          <SoftwareCard1
+          <SoftwareCard
             key={index}
             title={software.softwareName}
             deadline={`Deadline: ${software.deadline}`} 

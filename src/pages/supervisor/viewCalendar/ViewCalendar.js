@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../../../contexts/UserContext';
-import SoftwareCard1 from '../../../components/cards/SoftwareCard/SoftwareCard1';
+import SoftwareCard1 from '../../../components/cards/SoftwareCard/SoftwareCard';
 import { convertDate } from '../../../utils/dateConverter/ConvertDate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
