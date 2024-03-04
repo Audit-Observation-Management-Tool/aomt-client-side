@@ -1,26 +1,24 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { useUserContext } from '../../../contexts/UserContext';
-import SoftwareCard1 from '../../../components/cards/SoftwareCard/SoftwareCard';
-import { convertDate } from '../../../utils/dateConverter/ConvertDate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../components/loaders/Loader';
 import { convertDateWithoutTime } from '../../../utils/dateConverter/ConvertDateWithoutTime';
+import BigCalendar from '../../../components/calendar/BigCalendar';
 
 const ViewCalendar = ({onSelectionClick}) => {
-  const [softwareData, setSoftwareData] = useState([]);
+  const [events, setEvents] = useState([]);
   const navigate = useNavigate();
-  const [selectedSoftwareID, setSelectedSoftwareID] = useState(null);
-  const { supervisorID } = useUserContext();
   const [loading, setLoading] = useState(true);
+  const supervisorID = localStorage.getItem('ID');
+  const currDate = new Date();
 
 useEffect(() => {
   let isMounted = true; 
 
   const fetchData = async () => {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}supervisor`, { supervisorId: supervisorID });
+      const response = await axios.post(`${process.env.REACT_APP_BASE_URL}supervisor/fetch-calendar-events`, { supervisorId: supervisorID });
 
       if (!response.data) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -31,16 +29,14 @@ useEffect(() => {
       console.log("data: ", data);
 
       if (Array.isArray(data)) {
-        const formattedSoftwareData = data.map(result => ({
-          softwareID: result.Software_ID,
-          softwareName: result.Software_name,
-          description: result.Description || "",
-          created_on: convertDateWithoutTime(result.Created_On),
-          deadline: convertDateWithoutTime(result.Deadline),
+        const eventsData = data.map(result => ({
+          deadline: result.Deadline,
+          type: result.Type,
+          softwareName: result.Software_name
         }));
 
         if (isMounted) {
-          setSoftwareData(formattedSoftwareData);
+            setEvents(eventsData);
           setLoading(false);
         }
       } else {
@@ -64,14 +60,15 @@ useEffect(() => {
   };
 }, [supervisorID]);
 
-  const handleCardClick = (software) => {
-    setSelectedSoftwareID(software.softwareID);
-    localStorage.setItem('software', JSON.stringify(software));
-    onSelectionClick('viewDocumentationProgress');
-  };
+  const calendarEvents = events.map((item) => ({
+    start: item.deadline, 
+    end: item.deadline,
+    title: item.softwareName + "(" + item.type + ")"
+    
+    }));
 
   return (
-    <div className="w-[1350px] h-full bg-grayy overflow-visible flex flex-row items-start justify-start pt-[52px] px-[59px] pb-[410px] box-border">
+    <div className="w-[1350px] h-full bg-grayy overflow-visible flex flex-row items-start justify-start pt-[20px] px-[59px] pb-[410px] box-border align-center">
      {
       loading && (
         <Loader />
@@ -79,17 +76,8 @@ useEffect(() => {
      }
      {(
       !loading &&
-      <div className="flex flex-wrap gap-y-8 gap-x-7">
-        {softwareData.map((software, index) => (
-          <SoftwareCard1
-            key={index}
-            title={software.softwareName}
-            deadline={`Deadline: ${software.deadline}`} 
-            description={software.description} 
-            createdOn={software.created_on}
-            onClick={() => handleCardClick(software)}
-          />
-        ))}
+      <div className = "w-[1350px] bg-white align-center">
+        <BigCalendar events = {calendarEvents} />
       </div>
      )}
       

@@ -7,6 +7,7 @@ import ViewDocumentationProgress from "../viewDocumentationProgress/ViewDocument
 import VersionDetails from "../versionDetails/VersionDetails";
 import PortalPopup from "../../../components/popups/PortalPopup";
 import SignoutConfirmationPopup from "../../../components/popups/SignoutConfirmationPopup";
+import ViewCalendar from "../viewCalendar/ViewCalendar";
 
 const SupervisorTemplate = () => {
 
@@ -56,13 +57,11 @@ const SupervisorTemplate = () => {
     localStorage.setItem('selectedFrame', selectedFrame);
   }, [selectedFrame]); 
 
-  const [dashboardClicked, setDashboardClicked] = useState(true);
-  const [addSoftwareClicked, setSoftwareClicked] = useState(false);
-
   const handleDashboardClicked = () => {
-    localStorage.clear();
-    setDashboardClicked(dashboardClicked);
-    setSoftwareClicked(!addSoftwareClicked);
+    handleChildrenClick("dashboard");
+  }
+  const handleCalendarClicked = () => {
+    handleChildrenClick("viewCalendar");
   }
 
   return (
@@ -118,6 +117,7 @@ const SupervisorTemplate = () => {
           <div className="self-stretch flex flex-col items-end justify-start pt-0 px-0 pb-[5px] gap-[16px_0px]">
             <div className="self-stretch flex flex-col items-start justify-start gap-[11px_0px]">
               <button className="cursor-pointer [border:none] py-2 pr-px pl-[21px] bg-seagreen-200 self-stretch overflow-hidden flex flex-row items-center justify-end hover:bg-seagreen-100"
+              onClick={handleDashboardClicked}
               >
                 <div className="flex-1 flex flex-row items-start justify-start gap-[0px_7px]">
                   <img
@@ -132,6 +132,7 @@ const SupervisorTemplate = () => {
               </button>
               <div
                 className="self-stretch overflow-hidden flex flex-row items-center justify-end py-[5px] pr-0 pl-[21px] cursor-pointer hover:bg-seagreen-100" 
+                onClick={handleCalendarClicked}
               >
                 <div className="flex-1 flex flex-row items-center justify-start gap-[0px_8px]"
                 >
@@ -171,10 +172,11 @@ const SupervisorTemplate = () => {
         </div>
         
         <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10 ml-1 mt-2 mr-2 mq900:max-w-full">
-          {/* { selectedFrame === "Add Software" && <ViewDocumentationProgress /> } */}
+
           { selectedFrame === "dashboard" && <SupervisorDashboard onSelectionClick={handleChildrenClick} /> }
           { selectedFrame === "viewDocumentationProgress" && <ViewDocumentationProgress onSelectionClick={handleChildrenClick} /> }
           { selectedFrame === "viewVersionDetails" && <VersionDetails onSelectionClick={handleChildrenClick} /> }
+          { selectedFrame === "viewCalendar" && <ViewCalendar /> }
           
         </div>
       </section>
