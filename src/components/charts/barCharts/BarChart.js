@@ -29,7 +29,8 @@ const BarChartComponent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
+      try 
+      {
         const apiUrl = process.env.REACT_APP_BASE_URL;
         const response = await axios.get(`${apiUrl}documents/barchart/${software.softwareID}`); 
         console.log(response.status);
@@ -43,11 +44,12 @@ const BarChartComponent = () => {
           setDataset(resultData);
         }
       }
-      catch (error) {
+      catch (error) 
+      {
         setDataset(nullDataset);
-        //console.error('Error fetching data:', error);
       }
-      finally {
+      finally 
+      {
         setLoading(false);
       }
     };
