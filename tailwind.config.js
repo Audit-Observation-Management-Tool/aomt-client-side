@@ -94,7 +94,7 @@ module.exports = {
       base: "16px",
       xs: "12px",
       lg: "18px",
-      "4xs": "9px",
+      "4xs": "10px",
       inherit: "inherit",
     },
     screens: {

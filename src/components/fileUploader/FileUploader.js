@@ -23,16 +23,18 @@ registerPlugin(
   FilePondPluginImageTransform
 );
 
-export default function FileUploader() {
+export default function FileUploader() 
+{
   const [files, setFiles] = useState([]);
 
   const handleProcess = (fieldName, file, metadata, load, error, progress, abort) => {
     const formData = new FormData();
     formData.append('file', file);
+    const apiUrl = process.env.REACT_APP_BASE_URL;
 
     axios({
       method: "post",
-      url: `http://localhost:5000/documents/upload-pdf/1/User Acceptance Testing (UAT)`,
+      url: `${apiUrl}1/User Acceptance Testing (UAT)`,
       mode: "no-cors",
       data: formData,
       headers: {

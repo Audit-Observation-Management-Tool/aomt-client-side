@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useUserContext } from '../../../contexts/UserContext';
-import SoftwareCard from '../../../components/cards/SoftwareCard/SoftwareCard';
+import SoftwareCard1 from '../../../components/cards/SoftwareCard/SoftwareCard';
 import { convertDate } from '../../../utils/dateConverter/ConvertDate';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Loader from '../../../components/loaders/Loader';
 import { convertDateWithoutTime } from '../../../utils/dateConverter/ConvertDateWithoutTime';
 
-const SupervisorDashboard = ({onSelectionClick}) => {
+const ViewCalendar = ({onSelectionClick}) => {
   const [softwareData, setSoftwareData] = useState([]);
   const navigate = useNavigate();
   const [selectedSoftwareID, setSelectedSoftwareID] = useState(null);
-  const supervisorID = localStorage.getItem('ID');
+  const { supervisorID } = useUserContext();
   const [loading, setLoading] = useState(true);
 
 useEffect(() => {
@@ -36,7 +36,6 @@ useEffect(() => {
           softwareName: result.Software_name,
           description: result.Description || "",
           created_on: convertDateWithoutTime(result.Created_On),
-          assignees: result.Assigned_Members_Count,
           deadline: convertDateWithoutTime(result.Deadline),
         }));
 
@@ -82,13 +81,12 @@ useEffect(() => {
       !loading &&
       <div className="flex flex-wrap gap-y-8 gap-x-7">
         {softwareData.map((software, index) => (
-          <SoftwareCard
+          <SoftwareCard1
             key={index}
             title={software.softwareName}
             deadline={`Deadline: ${software.deadline}`} 
             description={software.description} 
             createdOn={software.created_on}
-            assignees={software.assignees}
             onClick={() => handleCardClick(software)}
           />
         ))}
@@ -99,4 +97,4 @@ useEffect(() => {
   );
 };
 
-export default SupervisorDashboard;
+export default ViewCalendar;

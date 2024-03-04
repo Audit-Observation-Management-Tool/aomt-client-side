@@ -97,7 +97,7 @@ const SupervisorTemplate = () => {
                   {supervisorData[0].Name}
                 </div>
                 <div className="flex flex-row items-start justify-start py-0 pr-0 pl-5 text-xs text-slategray">
-                  <div className="relative z-[1]">Supervisor, {supervisorData[0].Division} Division</div>
+                  <div className="relative z-[1]">Supervisor, {supervisorData[0].Division} Division ({supervisorData[0].Branch})</div>
                 </div>
               </div>
               <img
@@ -112,6 +112,7 @@ const SupervisorTemplate = () => {
         <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-silver-100" />
       </div>
       <section className="self-stretch h-[692px] flex flex-row items-start justify-start max-w-full text-left text-xs text-white font-roboto mq900:pl-0 mq900:pr-0 mq900:box-border">
+      
         <div className="w-[194px] bg-seagreen-200 overflow-hidden shrink-0 flex flex-col items-end justify-start pt-[30px] px-0 pb-[38px] box-border gap-[463px_0px] mq900:flex mq900:pt-5 mq900:pb-7 mq900:box-border">
         
           <div className="self-stretch flex flex-col items-end justify-start pt-0 px-0 pb-[5px] gap-[16px_0px]">
@@ -138,10 +139,10 @@ const SupervisorTemplate = () => {
                     className="h-[18px] w-[16.7px] relative"
                     loading="eager"
                     alt=""
-                    src="/addSoftware.svg"
+                    src="/calendar.svg"
                   />
                   <div className="h-6 flex-1 relative font-medium flex items-center">
-                    ADD SOFTWARE
+                    VIEW CALENDAR
                   </div>
                 </div>
               </div>
@@ -168,6 +169,7 @@ const SupervisorTemplate = () => {
             </div>
           </div>
         </div>
+        
         <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10 ml-1 mt-2 mr-2 mq900:max-w-full">
           {/* { selectedFrame === "Add Software" && <ViewDocumentationProgress /> } */}
           { selectedFrame === "dashboard" && <SupervisorDashboard onSelectionClick={handleChildrenClick} /> }
