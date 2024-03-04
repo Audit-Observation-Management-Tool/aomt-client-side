@@ -62,7 +62,7 @@ const LandingPage = () => {
         else if(!response.data.isSupervisor)
         {
         //  setUserAsMember(response.data.userID);
-          localStorage.setItem('selectedFrame', 'uploadDocuments');
+          localStorage.setItem('selectedFrame', 'memberDashboard');
           localStorage.setItem('ID', response.data.userID);
           setTimeout(() => {
             navigate("/member-page");
@@ -124,7 +124,7 @@ const LandingPage = () => {
         </div>
 
       <form onSubmit = {handleSigninClick}>
-        <div className="self-stretch rounded-3xs bg-white box-border overflow-hidden flex flex-col items-center justify-start pt-9 pb-14 pr-[29px] pl-7 gap-[36px_0px] max-w-full text-mini text-black border-[1px] border-solid border-darkgray mq450:pt-[23px] mq450:pb-9 mq450:box-border mq800:gap-[36px_0px]">
+        <div className="self-stretch rounded-3xs bg-white box-border overflow-hidden flex flex-col items-center justify-start pt-9 pb-14 pr-[29px] pl-7 gap-[36px_0px] max-w-full text-mini text-black border-[1px] border-solid border-silver-100 mq450:pt-[23px] mq450:pb-9 mq450:box-border mq800:gap-[36px_0px]">
 
           <div className="self-stretch h-[105px] flex flex-col items-start justify-start pt-0 px-0 pb-[19px] box-border gap-[10px_0px]">
             <div className="flex flex-row items-start justify-start py-0 px-[3px]">

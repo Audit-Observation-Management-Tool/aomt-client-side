@@ -42,7 +42,7 @@ const SendRemarksPopup = ({ onClose }) => {
 
   };
   return (
-    <div className="w-[326px] rounded-xl bg-whitesmoke shadow-[0px_4px_10px_rgba(0,_0,_0,_0.3)] overflow-hidden flex flex-col items-center justify-start pt-4 pb-[37px] pr-5 pl-[35px] box-border gap-[5px_0px] max-w-full max-h-full">
+    <div className="w-[326px] rounded-xl bg-white shadow-[0px_4px_10px_rgba(0,_0,_0,_0.3)] overflow-hidden flex flex-col items-center justify-start pt-4 pb-[37px] pr-5 pl-[35px] box-border gap-[5px_0px] max-w-full max-h-full">
       <div className="self-stretch flex flex-row items-start justify-end pt-0 px-0 pb-[26px]">
         <img
           className="h-[9.5px] w-[9.9px] relative"
@@ -104,7 +104,7 @@ const SendRemarksPopup = ({ onClose }) => {
       </section>
       <footer className="self-stretch flex flex-row items-start justify-start py-0 pr-4 pl-0">
         <Button
-          className="h-7 flex-1"
+          className="h-7 flex-1 hover:cursor-pointer hover:bg-seagreen-200"
           disableElevation={true}
           variant="contained"
           onClick={handleSendClick}

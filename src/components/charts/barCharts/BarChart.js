@@ -13,32 +13,43 @@ const chartSetting = {
   width: 400,
   height: 270,
 };
-const testDataset = [
-  { count: 4, type: 'User Acceptance Testing (UAT)' },
-  { count: 4, type: 'System Requirement Specification (SRS)' },
-  { count: 2, type: 'System Design Specification (SDS)' },
-];
+
+
+const nullDataset = [
+  { count: 0, type: 'UAT' },
+  { count: 0, type: 'SRS' },
+  { count: 0, type: 'SDS' },
+  { count: 0, type: 'BRD' },
+]; 
 
 const BarChartComponent = () => {
   const [dataset, setDataset] = useState([]);
   const [loading, setLoading] = useState(true);
+  const software = JSON.parse(localStorage.getItem('software'));
 
   useEffect(() => {
-    console.log('fronten');
     const fetchData = async () => {
-      try {
+      try 
+      {
         const apiUrl = process.env.REACT_APP_BASE_URL;
-        const response = await axios.get(`${apiUrl}documents/barchart`); 
-        const resultData = response.data;
-
-        //console.log('Backend Response:', resultData);
-
-        setDataset(resultData);
+        const response = await axios.get(`${apiUrl}documents/barchart/${software.softwareID}`); 
+        console.log(response.status);
+        if(response.status === 500)
+        {
+          setDataset(nullDataset);
+        }
+        else
+        {
+          const resultData = response.data;
+          setDataset(resultData);
+        }
       }
-      catch (error) {
-        console.error('Error fetching data:', error);
+      catch (error) 
+      {
+        setDataset(nullDataset);
       }
-      finally {
+      finally 
+      {
         setLoading(false);
       }
     };
