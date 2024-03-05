@@ -33,7 +33,7 @@ const CompletionCard = () => {
                 <p className="text-xs font-semibold flex-1">{document.Document_Type}</p>
                 {document.Status === 'Accepted' ? (
                   <p className="text-xs text-green-600">
-                   ' ' <FontAwesomeIcon icon={faCheckCircle} /> Accepted
+                  <FontAwesomeIcon icon={faCheckCircle} /> Accepted
                   </p>
                 ) : (
                   <p className="text-xs text-red-600">
