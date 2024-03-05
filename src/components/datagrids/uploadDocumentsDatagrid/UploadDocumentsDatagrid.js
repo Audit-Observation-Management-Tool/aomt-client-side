@@ -34,8 +34,8 @@ const UploadDocumentsDatagrid = () => {
   const fetchData = async () => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}documents/fetch-version-details`, {
-        softwareID: `${documentID}`,
-        documentID: `${softwareID}`,
+        softwareID: `${softwareID}`,
+        documentID: `${documentID}`,
       });
 
       if (!response.data || response.data.length === 0) {
@@ -98,7 +98,7 @@ const UploadDocumentsDatagrid = () => {
     {
       field: 'submitted by',
       headerName: 'Submitted By',
-      width: 200,
+      width: 180,
       renderCell: (params) => (
         <div style={{ display: 'flex' }}>
           {params.row.ProfilePicture && (
@@ -112,7 +112,7 @@ const UploadDocumentsDatagrid = () => {
         </div>
       ),
     },
-    { field: 'submitted on', headerName: 'Submitted On', width: 100 },
+    { field: 'submitted on', headerName: 'Submitted On', width: 120 },
     {
       field: 'status',
       headerName: 'Status',
@@ -126,7 +126,7 @@ const UploadDocumentsDatagrid = () => {
     {
       field: 'change message',
       headerName: 'Change Message',
-      width: 420,
+      width: 240,
       renderCell: (params) => {
         if (isJSON(params.value)) 
         {
@@ -154,7 +154,7 @@ const UploadDocumentsDatagrid = () => {
     {
       field: 'remarks',
       headerName: 'Supervisor Remarks',
-      width: 200,
+      width: 240,
     },
   ];
   
