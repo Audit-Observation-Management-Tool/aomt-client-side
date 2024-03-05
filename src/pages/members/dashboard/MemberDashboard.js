@@ -69,12 +69,12 @@ const MemberDashboard = ({ onSelectionClick }) => {
   const columns = [
     { field: 'id', headerName: 'SI', width: 50, align: 'center', headerAlign: 'center' },
     { field: 'sw_name', headerName: 'Software Name', width: 200, align: 'center', headerAlign: 'center' },
-    { field: 'doctype', headerName: 'Document Type', width: 180, align: 'center', headerAlign: 'center' },
+    { field: 'doctype', headerName: 'Document Type', width: 250, align: 'center', headerAlign: 'center' },
     { field: 'deadline', headerName: 'Deadline', width: 180, align: 'center', headerAlign: 'center' },
     {
       field: 'status',
       headerName: 'Status',
-      width: 100,
+      width: 120,
       align: 'center',
       headerAlign: 'center',
       renderCell: (params) => (
@@ -114,10 +114,10 @@ const MemberDashboard = ({ onSelectionClick }) => {
 
 
   return (
-    <section className="w-[1306px] flex flex-row  items-start justify-start px-10 pt-5 pl-20 box-border max-w-full text-left text-xl text-dimgray-600 font-roboto">
+    <section className="w-[1306px] flex flex-row  items-start justify-start px-[0px] pt-0 pl-20 box-border max-w-full text-left text-xl text-dimgray-600 font-roboto">
       <div className="flex-1 flex flex-col  items-start justify-start gap-[20px_0px] max-w-full">
-        <div className="self-stretch flex flex-row items-end justify-start gap-[0px_37px] max-w-full mq725:gap-[0px_37px] mq1050:flex-wrap">
-          <div className="w-[519px] items-start justify-start pt-0 px-0 pb-0.5 box-border min-w-[519px] max-w-full mq725:min-w-full mq1050:flex-1">
+        <div className="self-stretch flex flex-row items-end justify-start gap-[0px_20px] max-w-full mq725:gap-[0px_37px] mq1050:flex-wrap">
+          <div className="w-[480px] items-start justify-start pt-0 px-0 pb-0.5 box-border min-w-[500px] max-w-full mq725:min-w-full mq1050:flex-1">
             <div className="self-stretch flex  flex-col  items-start justify-start" style={{ maxWidth: '619px' }}>
               <div className="w-[338px] h-[47px]  relative font-medium flex items-center shrink-0 max-w-full box-border pr-5 mq450:text-base top-[10px]">
                 {/* {"Welcome back " + rows[0].Name + "!"} */}
@@ -131,8 +131,8 @@ const MemberDashboard = ({ onSelectionClick }) => {
             </div>
           </div>
 
-          <div className="flex-1 flex flex-col  items-start justify-start gap-[19px_0px]  min-w-[485px] max-w-full text-sm text-black mq725:min-w-full">
-            <div className="self-stretch rounded-8xs bg-white overflow-hidden flex flex-row items-center justify-start pt-[5px] px-[11px] pb-1 [row-gap:20px] border-[1px] border-solid border-gainsboro-400 mq450:flex-wrap">
+          <div className="flex-1 flex flex-col  items-start justify-start gap-[19px_0px]  min-w-[485px] w-[150px] text-sm text-black mq725:min-w-full">
+            <div className="self-stretch rounded-8xs bg-white overflow-hidden flex flex-row items-center justify-start pt-[5px] px-[30px] pb-1 [row-gap:15px] w-[840px] border-[1px] border-solid border-gainsboro-400 mq450:flex-wrap">
               <div className="w-[82px] flex flex-col  items-start justify-start py-0 px-0 box-border">
                 <div className="w-[354px] h-10 relative font-medium flex items-center shrink-0 max-w-[432%]">{`Supervisor: `}</div>
               </div>
@@ -148,7 +148,7 @@ const MemberDashboard = ({ onSelectionClick }) => {
             )}
 
             {!loading && (
-              <div style={{ height: 500, width: 800, backgroundColor: "white", display: 'flex', justifyContent: 'flex-start', marginLeft: '0' }}>
+              <div style={{ height: 500, width: 900, backgroundColor: "white", display: 'flex', justifyContent: 'flex-start', marginLeft: '0' }}>
               <DataGrid
                 rows={rows}
                 columns={columns}
