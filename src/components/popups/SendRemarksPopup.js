@@ -1,9 +1,10 @@
 import { Button, Select, MenuItem, InputLabel } from "@mui/material";
 import { useState } from "react";
 import axios from 'axios';
+import { Navigate } from "react-router-dom";
 
 
-const SendRemarksPopup = ({ onClose }) => {
+const SendRemarksPopup = ({ onClose, onSelectionClick }) => {
   const [status, setStatus] = useState('');
   const [remarks, setRemarks] = useState(''); 
   const [loading, setLoading] = useState(true);
@@ -32,6 +33,11 @@ const SendRemarksPopup = ({ onClose }) => {
       if (!response.data || response.data.length === 0) {
         console.log('No data found');
         return;
+      }
+      else
+      {
+        onSelectionClick("viewVersionDetails");
+        onClose();
       }
 
     } 

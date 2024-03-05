@@ -22,6 +22,36 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
     height: 22,
   }));
 
+  const getStatusColor = () => {
+    if (status === 'No Submissions Yet') 
+    {
+      return 'text-darkgray'; 
+    } 
+    else if (status === 'Not Reviewed') 
+    {
+      return 'text-darkorange'; 
+    } 
+    else if (status === 'Accepted') 
+    {
+      return 'text-seagreen-300'; 
+    } 
+    else if (status === 'Returned') 
+    {
+      return 'text-red-500'; 
+    } 
+  };
+
+  const cardColor = () => {
+    if (status === 'Accepted') 
+    {
+      return 'bg-[#4CAF50] bg-opacity-25'; 
+    }
+    else
+    {
+      return 'bg-white'; 
+    } 
+  };
+
   const avatars = [
     <Avatar alt="Remy Sharp" src="" />,
     <Avatar alt="Travis Howard" src="" />,
@@ -32,7 +62,7 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
 
   return (
     <div
-      className="w-[423px] rounded-3xs bg-white shadow-[0px_0px_2px_rgba(0,_0,_0,_0.4)] overflow-hidden shrink-0 flex flex-col items-center justify-start py-[17px] pr-5 pl-3 box-border gap-[18px_0px] max-w-full cursor-pointer text-left text-base text-dimgray-300 font-roboto hover:shadow-[0px_0px_2px_rgba(0,_0,_0,_0.6)]"
+      className={`w-[423px] rounded-3xs ${cardColor()} shadow-[0px_0px_2px_rgba(0,_0,_0,_0.4)] overflow-hidden shrink-0 flex flex-col items-center justify-start py-[17px] pr-5 pl-3 box-border gap-[18px_0px] max-w-full cursor-pointer text-left text-base text-dimgray-300 font-roboto hover:shadow-[0px_0px_2px_rgba(0,_0,_0,_0.6)]`}
       onClick={handleCardClick}
     >
       <div className="self-stretch flex flex-row items-start justify-start py-0 pr-0.5 pl-0 box-border max-w-full">
@@ -43,7 +73,7 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
                 {documentationName}
               </h3>
               <div className="relative text-2xs text-red-100 whitespace-pre-wrap shrink-0">
-                {DaysLeftTillDeadline(deadline)}
+              {status !== "Accepted" ? DaysLeftTillDeadline(deadline) : '  '}
               </div>
             </div>
             <div className="flex flex-col items-start justify-start pt-[5px] px-0 pb-0 text-2xs">
@@ -52,15 +82,16 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
           </div>
 
           <div className="self-stretch rounded-xl overflow-hidden flex flex-row items-center justify-start">
-          <LinearProgressLine deadline = {deadline} />
+            {status !== "Accepted" ? <LinearProgressLine deadline={deadline} /> : null}
           </div>
+
         </div>
       </div>
       <div className="self-stretch flex flex-row items-start justify-start py-0 pr-0 pl-[9px] box-border max-w-full text-4xs text-dimgray-100">
         <div className="flex-1 flex flex-row items-center justify-between gap-[20px] max-w-full mq450:flex-wrap">
           <div className="w-[151px] flex flex-row items-center justify-start gap-[0px_6px]">
             <div className="flex flex-col items-start justify-start pt-0.5 px-0 pb-0">
-              <div className="relative">Assigned To</div>
+              <div className="relative">Assignees</div>
             </div>
             <div className="h-[21px] flex-1 relative">
               <AvatarGroup max={6}>
@@ -70,9 +101,9 @@ const DocumentationProgressCards = ({ documentationName, documentationDeadline, 
               </AvatarGroup>
             </div>
           </div>
-          <div className="flex flex-row items-start justify-start gap-[0px_2px] text-2xs text-dimgray-300">
+          <div className='flex flex-row items-start justify-start gap-[0px_2px] text-2xs'>
             <div className="relative">Latest Submission:</div>
-            <div className="relative text-darkorange">{status}</div>
+            <div className={`relative font-medium ${getStatusColor()}`}>{status}</div>
           </div>
         </div>
       </div>

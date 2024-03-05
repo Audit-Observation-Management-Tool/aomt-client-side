@@ -14,15 +14,11 @@ const LandingPage = () => {
   const navigate = useNavigate();
   const { setUserAsSupervisor } = useUserContext();
   const [showPassword, setShowPassword] = useState(false);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [userID, setUserID] = useState("");
   const [password, setPassword] = useState("");
   const [variant, setVariant] = useState("");
   const [message, setMessage] = useState("");
-  
-  const handleShowPasswordClick = () => {
-    setShowPassword(!showPassword);
-  }
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const showSnackbar = () => {
     setOpenSnackbar(true);
   };
@@ -31,6 +27,11 @@ const LandingPage = () => {
     if (reason === 'clickaway') return ;
     setOpenSnackbar(false);
   };
+  
+  const handleShowPasswordClick = () => {
+    setShowPassword(!showPassword);
+  }
+  
 
   const handleSigninClick = (e) => {
     e.preventDefault();

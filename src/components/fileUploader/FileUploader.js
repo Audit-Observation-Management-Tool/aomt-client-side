@@ -40,7 +40,7 @@ export default function FileUploader()
 
     axios({
       method: "post",
-      url: `${apiUrl}1/User Acceptance Testing (UAT)`,
+      url: `${apiUrl}documents/upload-pdf/${softwareID}/${documentName}`,
       mode: "no-cors",
       data: formData,
       headers: {
