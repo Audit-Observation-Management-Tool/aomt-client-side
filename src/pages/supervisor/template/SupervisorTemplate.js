@@ -9,6 +9,7 @@ import PortalPopup from "../../../components/popups/PortalPopup";
 import SignoutConfirmationPopup from "../../../components/popups/SignoutConfirmationPopup";
 import ViewCalendar from "../viewCalendar/ViewCalendar";
 import { useNavigate } from "react-router-dom";
+import AddSoftware from "../addSoftware/AddSoftware";
 
 const SupervisorTemplate = () => {
 
@@ -66,6 +67,9 @@ const SupervisorTemplate = () => {
   }
   const handleCalendarClicked = () => {
     handleChildrenClick("viewCalendar");
+  }
+  const handleSoftwareClicked = () => {
+    handleChildrenClick("addSoftware");
   }
 
   return (
@@ -136,7 +140,7 @@ const SupervisorTemplate = () => {
               </button>
               <div
                 className="self-stretch overflow-hidden flex flex-row items-center justify-end py-[5px] pr-0 pl-[21px] cursor-pointer hover:bg-seagreen-100" 
-                onClick={handleCalendarClicked}
+                onClick={handleSoftwareClicked}
               >
                 <div className="flex-1 flex flex-row items-center justify-start gap-[0px_8px]"
                 >
@@ -144,20 +148,26 @@ const SupervisorTemplate = () => {
                     className="h-[18px] w-[16.7px] relative"
                     loading="eager"
                     alt=""
-                    src="/calendar.svg"
+                    src="/addSoftware.svg"
                   />
                   <div className="h-6 flex-1 relative font-medium flex items-center">
-                    VIEW CALENDAR
+                    ADD SOFTWARE
                   </div>
                 </div>
               </div>
             </div>
-            <div className="self-stretch flex flex-row items-center justify-start py-0 pr-0 pl-5 gap-[0px_10px]">
-              <div className="h-[17px] flex flex-col items-start justify-start pt-0 px-0 pb-0.5 box-border">
+            <div className="h-[30px] self-stretch flex flex-row items-center justify-start py-0 pr-0 pl-5 gap-[0px_10px] hover:bg-seagreen-100 hover:cursor-pointer"
+            onClick={handleCalendarClicked}>
+              <div className="h-[18px] flex flex-col items-start justify-start pt-0 px-0 pb-0.5 box-border">
+
+              <img
+                loading="eager"
+                src="/calendar.svg"
+              />
                
               </div>
               <div className="h-6 flex-1 relative font-medium flex items-center">
-                
+                VIEW CALENDAR
               </div>
             </div>
           </div>
@@ -176,7 +186,7 @@ const SupervisorTemplate = () => {
         </div>
         
         <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-10 ml-1 mt-2 mr-2 mq900:max-w-full">
-
+          { selectedFrame === "addSoftware" && <AddSoftware /> } 
           { selectedFrame === "dashboard" && <SupervisorDashboard onSelectionClick={handleChildrenClick} /> }
           { selectedFrame === "viewDocumentationProgress" && <ViewDocumentationProgress onSelectionClick={handleChildrenClick} /> }
           { selectedFrame === "viewVersionDetails" && <VersionDetails onSelectionClick={handleChildrenClick} /> }
