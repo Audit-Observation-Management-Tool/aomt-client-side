@@ -4,12 +4,27 @@ import axios from 'axios';
 import Loader from "../../../components/loaders/Loader";
 import UploadDocuments from "../uploadDocuments/UploadDocuments";
 import MemberDashboard from "../dashboard/MemberDashboard";
+import SignoutConfirmationPopup from "../../../components/popups/SignoutConfirmationPopup";
+import PortalPopup from "../../../components/popups/PortalPopup";
+
 
 const MemberTemplate = () => {
 
   const memberID = localStorage.getItem('ID');
   const [memberData, setMemberData] = useState(null); 
   const [loading, setLoading] = useState(true);
+
+  const [isSignoutConfirmationPopupOpen, setSignoutConfirmationPopupOpen] =
+  useState(false);
+
+  const openSignoutConfirmationPopup = useCallback(() => {
+    setSignoutConfirmationPopupOpen(true);
+  }, []);
+
+  const closeSignoutConfirmationPopup = useCallback(() => {
+    setSignoutConfirmationPopupOpen(false);
+  }, []);
+
 
   useEffect(() => {
     const fetchMemberData = async () => {
@@ -30,6 +45,7 @@ const MemberTemplate = () => {
     };
     fetchMemberData();
   }, []);
+
 
 
   const [selectedFrame, setSelectedFrame] = useState(localStorage.getItem('selectedFrame'));
@@ -69,6 +85,9 @@ const MemberTemplate = () => {
               </div>
             </div>
             <div className="flex flex-row items-end justify-start gap-[0px_12px] text-right text-[14px] text-gray-200 font-inter">
+            <button className = "h-[30px] w-[70px] bg-seagreen-200 rounded-8xs text-white cursor-pointer hover:bg-seagreen-100 active:bg-seagreen-200" 
+             onClick={openSignoutConfirmationPopup}>
+             Log out </button>
               <div className="flex flex-col items-end justify-start gap-[5px_0px]">
                 <div className="relative z-[1]"> 
                   {memberData[0].Name}
@@ -86,6 +105,7 @@ const MemberTemplate = () => {
             </div>
           </div>
         </div>
+     
         <div className="self-stretch h-px relative box-border border-t-[1px] border-solid border-gray-300" />
       </div>
 
@@ -95,15 +115,18 @@ const MemberTemplate = () => {
         <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-100 ml-1 mt-2 mr-2 mq900:max-w-full">
           {/* { selectedFrame === "Add Software" && <ViewDocumentationProgress /> } */}
           { selectedFrame === "uploadDocuments" && <UploadDocuments onSelectionClick={handleChildrenClick} /> }
-
           { selectedFrame === "memberDashboard" && <MemberDashboard onSelectionClick={handleChildrenClick} /> }
-
-          
         </div>
       </section>
-
-
-
+      {isSignoutConfirmationPopupOpen && (
+        <PortalPopup
+          overlayColor="rgba(113, 113, 113, 0.3)"
+          placement="Centered"
+          onOutsideClick={closeSignoutConfirmationPopup}
+        >
+          <SignoutConfirmationPopup onClose={closeSignoutConfirmationPopup} />
+        </PortalPopup>
+      )}
        </>
      )}
     </div>
