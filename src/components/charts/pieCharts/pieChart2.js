@@ -2,17 +2,17 @@ import { PieChart as MuiPieChart } from '@mui/x-charts/PieChart';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const PieChart = () => {
+const PieChart2 = () => {
   const [dataset, setDataset] = useState([]);
   const member_ID = localStorage.getItem('ID');
   const nullDataset = [];
 
   useEffect(() => {
-    console.log("here i am");
+    console.log("yoo");
     const fetchData = async () => {
       try {
         const apiUrl = process.env.REACT_APP_BASE_URL;
-        const response = await axios.get(`${apiUrl}member/member-submissions/${member_ID}`);
+        const response = await axios.get(`${apiUrl}member/member-submissions-status/${member_ID}`);
         
         if (response.status === 500) {
           setDataset(nullDataset);
@@ -58,4 +58,4 @@ const PieChart = () => {
   );
 };
 
-export default PieChart;
+export default PieChart2;

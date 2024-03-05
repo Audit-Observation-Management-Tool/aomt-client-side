@@ -1,13 +1,70 @@
 import PieChart from "../../charts/pieCharts/PieChart";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const PendingTasksCard = () => {
+
+  const [dataset, setDataset] = useState([]);
+  const member_ID = localStorage.getItem('ID');
+  const nullDataset = [];
+
+  let srsCount = 0;
+  let uatCount = 0;
+  let brdCount = 0;
+  let sdsCount = 0;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const apiUrl = process.env.REACT_APP_BASE_URL;
+        const response = await axios.get(`${apiUrl}member/member-submissions/${member_ID}`);
+
+        if (response.status === 500) {
+          setDataset(nullDataset);
+        } else {
+          const backendData = response.data; // Assuming response.data is the provided array
+
+          const transformedData = backendData.map((item, index) => ({
+            id: index,
+            value: item['count'], // Use the count as the value for the PieChart
+            Type: item.Type, // Include the Type property
+          }));
+
+          setDataset(transformedData);
+          console.log(dataset);
+        }
+      } catch (error) {
+        setDataset(nullDataset);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  dataset.forEach(item => {
+    switch (item.Type) {
+      case 'SRS':
+        srsCount = item.value;
+        break;
+      case 'UAT':
+        uatCount = item.value;
+        break;
+      case 'BRD':
+        brdCount = item.value;
+        break;
+      case 'SDS':
+        sdsCount = item.value;
+        break;
+      default:
+        break;
+    }
+  });
+
   return (
     <div className="flex-1 rounded-mini bg-white box-border overflow-hidden flex flex-col items-center justify-start pt-[27px] pb-[33px] pr-[17px] pl-[29px] gap-[27px_0px] max-w-full text-left text-mini text-dimgray-600 font-roboto border-[1px] border-solid border-lightgray-100">
       <div className="self-stretch flex flex-row items-end justify-between gap-[20px] mq450:flex-wrap">
-        <div className="relative font-medium z-[1]">My Pending Works</div>
-        <div className="relative text-smi font-medium text-gray-500 z-[1]">
-          From 19 Feb, 2024
-        </div>
+        <div className="relative font-medium z-[1]">My Submission Count</div>
+        
       </div>
       <div className="self-stretch flex flex-row items-start justify-start max-w-full text-mid text-dimgray-700">
         <div className="w-[430px] flex flex-row items-center justify-start gap-[0px_32px] max-w-full mq450:flex-wrap mq450:gap-[0px_32px]">
@@ -17,13 +74,13 @@ const PendingTasksCard = () => {
               <div className="flex flex-row items-center justify-start gap-[0px_9px]">
                 <div className="h-8 w-1 relative rounded-8xs bg-royalblue overflow-hidden shrink-0 z-[1]" />
                 <div className="flex flex-col items-start justify-start pt-0.5 px-0 pb-0">
-                  <div className="relative font-medium z-[1]">1 SRS</div>
+                  <div className="relative font-medium z-[1]">{srsCount} SRS</div>
                 </div>
               </div>
               <div className="flex flex-row items-center justify-start gap-[0px_9px]">
                 <div className="h-8 w-1 relative rounded-8xs bg-deepskyblue overflow-hidden shrink-0 z-[1]" />
                 <div className="flex flex-col items-start justify-start pt-0 px-0 pb-0.5">
-                  <div className="relative font-medium z-[1]">0 BRD</div>
+                  <div className="relative font-medium z-[1]">{brdCount} BRD</div>
                 </div>
               </div>
             </div>
@@ -33,13 +90,13 @@ const PendingTasksCard = () => {
               <div className="flex flex-row items-center justify-start gap-[0px_8px]">
                 <div className="h-8 w-1 relative rounded-8xs bg-tomato overflow-hidden shrink-0 z-[1]" />
                 <div className="flex flex-col items-start justify-start pt-0.5 px-0 pb-0">
-                  <div className="relative font-medium z-[1]">0 SDS</div>
+                  <div className="relative font-medium z-[1]">{sdsCount} SDS</div>
                 </div>
               </div>
               <div className="flex flex-row items-end justify-start gap-[0px_9px]">
                 <div className="h-8 w-1 relative rounded-8xs bg-gold overflow-hidden shrink-0 z-[1]" />
                 <div className="flex flex-col items-start justify-start pt-0 px-0 pb-1">
-                  <div className="relative font-medium z-[1]">1 UAT</div>
+                  <div className="relative font-medium z-[1]">{uatCount} UAT</div>
                 </div>
               </div>
             </div>
