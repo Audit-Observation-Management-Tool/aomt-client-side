@@ -61,8 +61,8 @@ const PendingTasksCard = () => {
   });
 
   return (
-    <div className="flex-1 rounded-mini bg-white box-border overflow-hidden flex flex-col items-center justify-start pt-[27px] pb-[33px] pr-[17px] pl-[29px] gap-[27px_0px] max-w-full text-left text-mini text-dimgray-600 font-roboto border-[1px] border-solid border-lightgray-100">
-      <div className="self-stretch flex flex-row items-end justify-between gap-[20px] mq450:flex-wrap">
+    <div className="flex-1 rounded-mini bg-white box-border overflow-hidden flex flex-col items-center justify-start pt-[20px] pb-[33px] pr-[0px] pl-[18px] gap-[20px_0px] max-w-full text-left text-mini text-dimgray-600 font-roboto border-[1px] border-solid border-lightgray-100">
+      <div className="self-stretch flex flex-row items-end justify-between gap-[10px] mq450:flex-wrap">
         <div className="relative font-medium z-[1]">My Submission Count</div>
         
       </div>
@@ -70,7 +70,7 @@ const PendingTasksCard = () => {
         <div className="w-[430px] flex flex-row items-center justify-start gap-[0px_32px] max-w-full mq450:flex-wrap mq450:gap-[0px_32px]">
           <PieChart />
           
-          <div className="flex flex-col items-start justify-start pt-[19px] px-0 pb-0">
+          <div className="flex flex-col items-start justify-start pt-[10px] px-0 pb-0">
             <div className="flex flex-col items-start justify-start gap-[59px_0px]">
                 
              
