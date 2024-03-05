@@ -8,12 +8,15 @@ import VersionDetails from "../versionDetails/VersionDetails";
 import PortalPopup from "../../../components/popups/PortalPopup";
 import SignoutConfirmationPopup from "../../../components/popups/SignoutConfirmationPopup";
 import ViewCalendar from "../viewCalendar/ViewCalendar";
+import { useNavigate } from "react-router-dom";
 
 const SupervisorTemplate = () => {
 
   const supervisorID = localStorage.getItem('ID');
   const [supervisorData, setSupervisorData] = useState(null); 
   const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
 
   const [isSignoutConfirmationPopupOpen, setSignoutConfirmationPopupOpen] =
   useState(false);
@@ -36,6 +39,7 @@ const SupervisorTemplate = () => {
       } 
       catch (error) 
       {
+        navigate("/error");
         console.error('Error fetching data:', error);
       } 
       finally 

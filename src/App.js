@@ -5,6 +5,7 @@ import SupervisorTemplate from "./pages/supervisor/template/SupervisorTemplate";
 import ViewDocumentationProgress from "./pages/supervisor/viewDocumentationProgress/ViewDocumentationProgress";
 import MemberTemplate from "./pages/members/template/MemberTemplate";
 import MemberDashboard from "./pages/members/dashboard/MemberDashboard";
+import Error404 from "./pages/error/Error404";
 
 function App() {
   const action = useNavigationType();
@@ -53,6 +54,7 @@ function App() {
       <Route path="/supervisor-page" element={<SupervisorTemplate />} />
       <Route path="/member-page" element = {<MemberTemplate />} />
       <Route path="/dashboard" element = {<MemberDashboard />} />
+      <Route path="/error" element = {<Error404 />} />
     </Routes>
   );
 }
