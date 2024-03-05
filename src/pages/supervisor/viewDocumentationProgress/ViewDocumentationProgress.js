@@ -26,6 +26,7 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
       headerName: 'Name',
       width: 220,
       headerAlign: 'center',
+      
       renderCell: (params) => (
         <div style={{ display: 'flex', }}>
           {params.row.ProfilePicture && (
@@ -43,14 +44,12 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
     const fetchData = async () => {
       try {
         const apiUrl = process.env.REACT_APP_BASE_URL;
-        const response = await axios.get(
-          `${apiUrl}documents/fetch-document-progress/${software.softwareID}`
-        );
+        const response = await axios.get(`${apiUrl}documents/fetch-document-progress/${software.softwareID}`);
 
         if (Array.isArray(response.data) && response.data.length > 0) {
           const extractedData = response.data.map(([result]) => ({
             Type: result?.[0]?.Type,
-            Status: result?.[0]?.Status,
+            Status: result?.[0]?.Status || "No Submissions Yet",
             Deadline: result?.[0]?.Deadline,
             Team_Member_ID: result?.map(({ Team_Members }) => Team_Members) || [],
             Software_ID: result?.[0]?.Software_ID,
@@ -59,8 +58,6 @@ const ViewDocumentationProgress = ({ onSelectionClick }) => {
           })).filter(
             (item) =>
               item.Type !== null &&
-              item.Status !== null &&
-              item.Deadline !== null &&
               item.Team_Member_ID.length > 0
           );
 

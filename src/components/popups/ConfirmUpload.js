@@ -1,6 +1,6 @@
 import { Navigate, useNavigate } from "react-router-dom";
 
-const ConfirmUpload = ({ onClose, onSelectConfirm }) => {
+const ConfirmUpload = ({ onClose, onSelect }) => {
   const navigate = useNavigate();
 
  
@@ -19,11 +19,12 @@ const ConfirmUpload = ({ onClose, onSelectConfirm }) => {
           </button>
           <div className="absolute top-[32px] left-[0px] w-[430px] h-[109px]">
             <button
-              className="cursor-pointer [border:none] p-2.5 bg-[transparent] absolute top-[48px] left-[214px] w-[213px] h-[60px] flex flex-row flex-wrap items-center justify-center box-border hover:gap-[10px] hover:cursor-pointer hover:bg-gray-300 rounded-3xs "
+              className="cursor-pointer [border:none] p-2.5 bg-[transparent] absolute top-[48px] left-[214px] w-[213px] h-[60px] flex flex-row flex-wrap items-center justify-center box-border hover:gap-[10px] "
               id="signOut"
             >
-              <button className="cursor-pointer [border:none] p-0 bg-[transparent] w-[212px] relative text-mini capitalize font-bold font-poppins text-black text-center flex items-center justify-center shrink-0"
-              onClick={onSelectConfirm}>
+              <button className="cursor-pointer [border:none] p-0 bg-[transparent] w-[212px] relative text-mini capitalize font-bold font-poppins text-black text-center flex items-center justify-center shrink-0 hover:text-seagreen-200"
+              onClick = {onSelect}
+              >
                Confirm
               </button>
             </button>

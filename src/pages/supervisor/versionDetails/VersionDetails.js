@@ -7,6 +7,7 @@ import Loader from '../../../components/loaders/Loader';
 import SendRemarksPopup from '../../../components/popups/SendRemarksPopup';
 import { RawDataToReadableDataConverter } from '../../../utils/rawDataToReadableDataConverter/RawDataToReadableDataConverter';
 import PortalPopup from '../../../components/popups/PortalPopup';
+import SnackbarComponent from '../../../components/snackbars/SnackbarComponent';
 
 const VersionDetails = ({onSelectionClick}) => {
 
@@ -24,13 +25,24 @@ const VersionDetails = ({onSelectionClick}) => {
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isCommentPopupOpen, setCommentPopupOpen] = useState(false);
-
+  const [variant, setVariant] = useState("");
+  const [message, setMessage] = useState("");
   const storedData = localStorage.getItem('cardData');
-
   const cardData = storedData ? JSON.parse(storedData) : null;
+  const Status = cardData.Status;
   const [softwareName, setSoftwareName] = useState(cardData.Software_Name);
   const [documentName, setDocumentName] = useState(" / " + cardData.Type);
   localStorage.setItem('docID', `${cardData.Document_ID}`);
+
+  const showSnackbar = () => {
+    setOpenSnackbar(true);
+  };
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') return ;
+    setOpenSnackbar(false);
+  };
 
   const openCommentPopup = useCallback(() => {
     setCommentPopupOpen(true);
@@ -105,10 +117,16 @@ const VersionDetails = ({onSelectionClick}) => {
         link.setAttribute('download', `${cardData.Software_Name}_${cardData.Type}.pdf`);
         document.body.appendChild(link);
         link.click();
+        setVariant("success");
+        setMessage("PDF Downloaded!");
+        showSnackbar();
       })
       .catch(error => {
         console.error('Error:', error);
-        alert('There is no PDF file to download.');
+        setVariant("error");
+        setMessage("There is no PDF file to download.");
+        showSnackbar();
+       // alert('There is no PDF file to download.');
       });
   };
 
@@ -200,6 +218,12 @@ const VersionDetails = ({onSelectionClick}) => {
     {!loading && (
       <> 
       <header className="self-stretch flex flex-row items-start justify-start text-left text-xl text-gray-400 font-roboto mb-[-40px]">
+      <SnackbarComponent
+        open={openSnackbar} 
+        message={message}
+        variant={variant} 
+        onClose={handleCloseSnackbar} 
+      />
         <div className="overflow-hidden flex flex-row items-start justify-start py-0 pr-[18px] pl-[19px] gap-[0px_12px]">
           <div className="h-[34px] w-200 flex flex-col items-start justify-end pt-0 px-0 pb-0 box-border">
            <div className="mt-[-7px] self-stretch flex flex-row items-center justify-start">
@@ -253,6 +277,7 @@ const VersionDetails = ({onSelectionClick}) => {
           className="h-10 flex-1"
           disableElevation={true}
           variant="contained"
+          disabled={Status === "Accepted"}
           sx={{
             textTransform: "none",
             color: "#fff",
