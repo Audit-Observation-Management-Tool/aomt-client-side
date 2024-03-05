@@ -69,36 +69,11 @@ const PendingTasksCard = () => {
       <div className="self-stretch flex flex-row items-start justify-start max-w-full text-mid text-dimgray-700">
         <div className="w-[430px] flex flex-row items-center justify-start gap-[0px_32px] max-w-full mq450:flex-wrap mq450:gap-[0px_32px]">
           <PieChart />
-          <div className="w-[104px] flex flex-col items-start justify-start pt-[19px] px-0 pb-0 box-border">
-            <div className="flex flex-col items-start justify-start gap-[59px_0px]">
-              <div className="flex flex-row items-center justify-start gap-[0px_9px]">
-                <div className="h-8 w-1 relative rounded-8xs bg-royalblue overflow-hidden shrink-0 z-[1]" />
-                <div className="flex flex-col items-start justify-start pt-0.5 px-0 pb-0">
-                  <div className="relative font-medium z-[1]">{srsCount} SRS</div>
-                </div>
-              </div>
-              <div className="flex flex-row items-center justify-start gap-[0px_9px]">
-                <div className="h-8 w-1 relative rounded-8xs bg-deepskyblue overflow-hidden shrink-0 z-[1]" />
-                <div className="flex flex-col items-start justify-start pt-0 px-0 pb-0.5">
-                  <div className="relative font-medium z-[1]">{brdCount} BRD</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
           <div className="flex flex-col items-start justify-start pt-[19px] px-0 pb-0">
             <div className="flex flex-col items-start justify-start gap-[59px_0px]">
-              <div className="flex flex-row items-center justify-start gap-[0px_8px]">
-                <div className="h-8 w-1 relative rounded-8xs bg-tomato overflow-hidden shrink-0 z-[1]" />
-                <div className="flex flex-col items-start justify-start pt-0.5 px-0 pb-0">
-                  <div className="relative font-medium z-[1]">{sdsCount} SDS</div>
-                </div>
-              </div>
-              <div className="flex flex-row items-end justify-start gap-[0px_9px]">
-                <div className="h-8 w-1 relative rounded-8xs bg-gold overflow-hidden shrink-0 z-[1]" />
-                <div className="flex flex-col items-start justify-start pt-0 px-0 pb-1">
-                  <div className="relative font-medium z-[1]">{uatCount} UAT</div>
-                </div>
-              </div>
+                
+             
             </div>
           </div>
         </div>

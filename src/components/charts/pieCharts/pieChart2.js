@@ -8,7 +8,6 @@ const PieChart2 = () => {
   const nullDataset = [];
 
   useEffect(() => {
-    console.log("yoo");
     const fetchData = async () => {
       try {
         const apiUrl = process.env.REACT_APP_BASE_URL;
@@ -21,7 +20,8 @@ const PieChart2 = () => {
   
           const transformedData = backendData.map((item, index) => ({
             id: index,
-            value: item['count'], // Use the count as the value for the PieChart
+            value: item['count'], 
+            label: item['count']+ ' submission ' + item.Status,
           }));
   
           setDataset(transformedData);
@@ -36,7 +36,7 @@ const PieChart2 = () => {
   }, []);
 
   return (
-    <div className="[border:none] h-[159px] w-auto [outline:none] flex-1 relative overflow-hidden min-w-[100px]">
+    <div className="[border:none] h-[180px] w-auto [outline:none] flex-1 relative overflow-hidden min-w-[100px]">
       <MuiPieChart
         series={[
           {
@@ -51,8 +51,8 @@ const PieChart2 = () => {
             cy: 75,
           }
         ]}
-        height={200}
-        width={200}
+        height={190}
+        width={450}
       />
     </div>
   );

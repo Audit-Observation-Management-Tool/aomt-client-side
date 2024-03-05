@@ -22,6 +22,7 @@ const PieChart = () => {
           const transformedData = backendData.map((item, index) => ({
             id: index,
             value: item['count'], // Use the count as the value for the PieChart
+            label: item['count']+ ' ' +item.Type+'   submitted',
           }));
   
           setDataset(transformedData);
@@ -51,8 +52,8 @@ const PieChart = () => {
             cy: 75,
           }
         ]}
-        height={200}
-        width={200}
+        height={180}
+        width={400}
       />
     </div>
   );
