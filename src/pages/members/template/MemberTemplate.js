@@ -46,8 +46,6 @@ const MemberTemplate = () => {
     fetchMemberData();
   }, []);
 
-
-
   const [selectedFrame, setSelectedFrame] = useState(localStorage.getItem('selectedFrame'));
 
   const handleChildrenClick = useCallback((option) => {
@@ -113,7 +111,7 @@ const MemberTemplate = () => {
       <section className="self-stretch h-[684px] flex flex-row items-start justify-start max-w-full text-left text-xs text-white font-roboto mq900:pl-0 mq900:pr-0 mq900:box-border">
        
         <div className="self-stretch flex-1 relative overflow-hidden max-w-[calc(100% - 193px)] z-100 ml-1 mt-2 mr-2 mq900:max-w-full">
-          {/* { selectedFrame === "Add Software" && <ViewDocumentationProgress /> } */}
+          
           { selectedFrame === "uploadDocuments" && <UploadDocuments onSelectionClick={handleChildrenClick} /> }
           { selectedFrame === "memberDashboard" && <MemberDashboard onSelectionClick={handleChildrenClick} /> }
         </div>
