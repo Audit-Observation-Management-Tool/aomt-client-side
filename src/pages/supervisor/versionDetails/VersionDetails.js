@@ -15,7 +15,6 @@ const VersionDetails = ({onSelectionClick}) => {
     onSelectionClick(option);
   }
 
-
   const isJSON = (content) => {
     try 
     {
