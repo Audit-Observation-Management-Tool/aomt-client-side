@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Navigate } from "react-router-dom";
 
 
-const SendRemarksPopup = ({ onClose, onSelectionClick }) => {
+const SendRemarksPopup = ({ onClose, onSelectionClick, sendSnackbar }) => {
   const [status, setStatus] = useState('');
   const [remarks, setRemarks] = useState(''); 
   const [loading, setLoading] = useState(true);
@@ -37,7 +37,9 @@ const SendRemarksPopup = ({ onClose, onSelectionClick }) => {
       else
       {
         onSelectionClick("viewVersionDetails");
-        onClose();
+        window.location.reload();
+        sendSnackbar(true);
+        //onClose();
       }
 
     } 
