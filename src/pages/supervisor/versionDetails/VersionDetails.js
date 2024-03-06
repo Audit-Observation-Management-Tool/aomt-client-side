@@ -11,6 +11,11 @@ import SnackbarComponent from '../../../components/snackbars/SnackbarComponent';
 
 const VersionDetails = ({onSelectionClick}) => {
 
+  const handleSelection = (option) => {
+    onSelectionClick(option);
+  }
+
+
   const isJSON = (content) => {
     try 
     {
@@ -298,7 +303,7 @@ const VersionDetails = ({onSelectionClick}) => {
           placement="Centered"
           onOutsideClick={closeCommentPopup}
         >
-          <SendRemarksPopup onClose={closeCommentPopup} />
+          <SendRemarksPopup onClose={closeCommentPopup} onSelectionClick = {handleSelection} sendSnackbar={showSnackbar} />
         </PortalPopup>
       )}
     </>
