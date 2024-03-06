@@ -59,7 +59,7 @@ const PendingTasksCard = () => {
   return (
     <div className="flex-1 rounded-mini bg-white box-border overflow-hidden flex flex-col items-center justify-start pt-[27px] pb-[33px] pr-[17px] pl-[29px] gap-[27px_0px] max-w-full text-left text-mini text-dimgray-600 font-roboto border-[1px] border-solid border-lightgray-100">
       <div className="self-stretch flex flex-row items-end justify-between gap-[20px] mq450:flex-wrap">
-        <div className="relative font-medium z-[1]">My Submission Statuses</div>
+        <div className="relative font-medium z-[1]">My Submission Status</div>
         
       </div>
       <div className="self-stretch flex flex-row items-start justify-start max-w-full text-mid text-dimgray-700">
