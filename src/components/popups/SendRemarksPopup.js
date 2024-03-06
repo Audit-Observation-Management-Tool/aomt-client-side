@@ -1,4 +1,4 @@
-import { Button, Select, MenuItem, InputLabel } from "@mui/material";
+import { Button, Select, MenuItem, InputLabel, TextField } from "@mui/material";
 import { useState } from "react";
 import axios from 'axios';
 import { Navigate } from "react-router-dom";
@@ -36,10 +36,7 @@ const SendRemarksPopup = ({ onClose, onSelectionClick, sendSnackbar }) => {
       }
       else
       {
-        onSelectionClick("viewVersionDetails");
         window.location.reload();
-        sendSnackbar(true);
-        //onClose();
       }
 
     } 
@@ -56,10 +53,10 @@ const SendRemarksPopup = ({ onClose, onSelectionClick, sendSnackbar }) => {
           className="h-[9.5px] w-[9.9px] relative"
           loading="eager"
           alt=""
-          src="/vector.svg"
+          src="/cross.svg"
         />
       </div>
-      <section className="self-stretch flex flex-row items-start justify-start py-0 pr-4 pl-0 text-center text-xs text-darkslategray-200 font-roboto">
+      <section className="self-stretch flex flex-row items-start justify-start py-0 pr-4 pl-0 text-center text-[14px] text-darkslategray-200 font-roboto">
         <div className="flex-1 flex flex-col items-start justify-start gap-[9px_0px]">
           <div className="relative">Set Status</div>
           <div className="self-stretch flex flex-col items-start justify-start gap-[16px_0px] text-darkslategray-100">
@@ -95,17 +92,14 @@ const SendRemarksPopup = ({ onClose, onSelectionClick, sendSnackbar }) => {
           </div>
         </div>
       </section>
-      <section className="self-stretch flex flex-row items-start justify-start pt-0 pb-[11px] pr-4 pl-0">
-        <textarea
-          className="bg-white h-[194px] w-auto [outline:none] flex-1 relative rounded-6xs box-border overflow-hidden border-[1px] border-solid border-gray-300"
-          rows={10}
-          cols={13}
+      <section className="self-stretch flex flex-row items-start justify-start pt-2 pb-[13px] pr-4 pl-0">
+        <TextField
+          className="bg-white h-[194px] w-auto [outline:none] flex-1 relative rounded-8xs box-border overflow-hidden"
+          multiline
+          rows = {7}
           value={remarks}
-          style={{
-            color: '#656565',   
-            fontSize: '13px',    
-            fontFamily: 'Roboto', 
-          }}
+          color="success"
+
           onChange={handleRemarksChange}
         />
 

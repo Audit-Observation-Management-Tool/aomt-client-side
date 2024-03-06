@@ -28,9 +28,6 @@ const UploadDocumentSection = () => {
         console.log(htmlContent);
 
         axios.post(`${process.env.REACT_APP_BASE_URL}documents/upload-change-message`, {
-             /*softwareID: `${cardData.Software_ID}`
-              documentID: `${cardData.Document_ID}`,
-                */
               memberID: memberID, 
               documentID: documentID, 
               content: htmlContent,
